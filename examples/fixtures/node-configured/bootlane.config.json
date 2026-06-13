@@ -1,0 +1,8 @@
+{
+  "failOn": "warning",
+  "checks": {
+    "ci.github-actions.missing": "off",
+    "runtime.node-version.missing": "error"
+  }
+}
+

@@ -1,0 +1,10 @@
+[project]
+name = "python-ci-no-test-uv"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+  "pytest"
+]
+
+[tool.uv]
+package = true

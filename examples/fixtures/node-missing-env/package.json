@@ -1,0 +1,13 @@
+{
+  "name": "node-missing-env",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  }
+}
+

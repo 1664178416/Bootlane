@@ -1,0 +1,49 @@
+{
+  "name": "bootlane-repo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open-source CLI for checking whether a repository is ready to run.",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@8.15.3",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "docs:check-contributing": "node scripts/check-contributing-doc.mjs",
+    "docs:check-templates": "node scripts/check-github-templates.mjs",
+    "docs:check-triage": "node scripts/check-triage-doc.mjs",
+    "docs:check-quality-gates": "node scripts/check-quality-gates-doc.mjs",
+    "ci:workflow:check": "node scripts/check-ci-workflow-contract.mjs",
+    "docs:check-security": "node scripts/check-security-doc.mjs",
+    "docs:check-package-contents": "node scripts/check-package-contents-doc.mjs",
+    "docs:check-release-evidence": "node scripts/check-release-evidence-doc.mjs",
+    "docs:check-changelog": "node scripts/check-changelog-doc.mjs",
+    "docs:check-ids": "node scripts/check-id-catalog.mjs",
+    "docs:check-release-blockers": "node scripts/check-release-blockers-doc.mjs",
+    "docs:check-release-safety-fixtures": "node scripts/check-release-safety-fixtures-doc.mjs",
+    "example:report": "node scripts/generate-example-report.mjs",
+    "example:report:check": "node scripts/generate-example-report.mjs --check",
+    "release:evidence": "node scripts/generate-release-evidence-snapshot.mjs",
+    "release:evidence:check": "node scripts/generate-release-evidence-snapshot.mjs --check",
+    "release:gates:check": "node scripts/check-release-gate-contracts.mjs",
+    "metadata:check": "node scripts/check-package-metadata.mjs",
+    "release-safety:check": "node scripts/check-release-safety.mjs",
+    "release-safety:fixtures": "node scripts/check-release-safety-fixtures.mjs",
+    "npm-names:check": "node scripts/check-npm-package-names.mjs",
+    "smoke:bin": "node scripts/smoke-bin.mjs",
+    "smoke:packed-install": "node scripts/smoke-packed-install.mjs",
+    "pack:dry-run": "node scripts/pack-dry-run.mjs",
+    "verify:release": "node scripts/verify-release.mjs",
+    "clean": "tsc -b --clean"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0",
+    "vitest": "^3.2.0"
+  }
+}

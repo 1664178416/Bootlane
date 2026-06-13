@@ -1,0 +1,44 @@
+name: Docs confusion
+description: Report confusing, stale, or missing documentation.
+title: "[Docs]: "
+labels:
+  - docs
+  - needs-triage
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page or section
+      description: Which README or docs page caused confusion?
+      placeholder: "docs/CONFIGURATION.md"
+    validations:
+      required: true
+  - type: textarea
+    id: confusion
+    attributes:
+      label: What was confusing?
+      description: Describe what you expected to learn and where the docs fell short.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      description: Optional wording, example, or structure that would help.
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI usage
+        - Configuration
+        - Fix previews
+        - GitHub Actions
+        - Python support
+        - Release or launch docs
+        - Contributor docs
+        - Other
+    validations:
+      required: true

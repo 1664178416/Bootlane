@@ -1,0 +1,75 @@
+name: Feature request
+description: Suggest a new check, ecosystem, output mode, or workflow.
+title: "[Feature]: "
+labels:
+  - enhancement
+  - needs-triage
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What clone-to-run problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: What should Bootlane report, detect, or generate?
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Node check
+        - Python check
+        - New ecosystem
+        - Configuration
+        - Report output
+        - Fix preview
+        - GitHub Actions
+        - Contributor or release workflow
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: roadmap_category
+    attributes:
+      label: Roadmap category
+      description: Choose the closest Roadmap Candidate Review category from docs/TRIAGE.md.
+      options:
+        - Small deterministic check
+        - Integration or output workflow
+        - New ecosystem expansion
+        - Write-capable flow
+        - Out of scope
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Roadmap evidence
+      description: Add fixtures, representative repositories, workflow examples, output shape, write-boundary notes, or scope rationale.
+    validations:
+      required: false
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Bootlane constraints
+      options:
+        - label: This can work without accounts, telemetry, or cloud services.
+          required: false
+        - label: This can keep `bootlane check` read-only.
+          required: false
+        - label: This does not require running arbitrary project scripts by default.
+          required: false
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples
+      description: Link repos, tools, docs, or sample files that show the desired behavior.
+    validations:
+      required: false

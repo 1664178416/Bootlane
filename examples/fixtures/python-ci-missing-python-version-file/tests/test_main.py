@@ -1,0 +1,5 @@
+from app.main import greeting
+
+
+def test_greeting():
+    assert greeting() == "hello"

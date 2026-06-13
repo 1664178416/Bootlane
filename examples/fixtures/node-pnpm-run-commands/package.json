@@ -1,0 +1,19 @@
+{
+  "name": "node-pnpm-run-commands",
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "pnpm@8.15.3",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

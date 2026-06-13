@@ -1,0 +1,53 @@
+{
+  "name": "bootlane",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Check whether a repository is ready to run: docs, dependencies, env vars, tests, secrets, and CI.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "cli",
+    "repository",
+    "diagnostics",
+    "readiness",
+    "setup",
+    "github-actions",
+    "node",
+    "python"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "bootlane": "./dist/index.js"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run",
+    "smoke:bin": "node ../../scripts/smoke-bin.mjs"
+  },
+  "dependencies": {
+    "@bootlane/core": "^0.1.0",
+    "commander": "^14.0.0",
+    "picocolors": "^1.1.1"
+  }
+}

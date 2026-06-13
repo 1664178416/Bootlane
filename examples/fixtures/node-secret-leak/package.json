@@ -1,0 +1,12 @@
+{
+  "name": "node-secret-leak",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  }
+}
+

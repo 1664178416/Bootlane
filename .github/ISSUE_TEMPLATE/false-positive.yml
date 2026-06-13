@@ -1,0 +1,140 @@
+name: False positive
+description: Report a finding that Bootlane should not have emitted.
+title: "[False positive]: "
+labels:
+  - false-positive
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping reduce noise. A small reproduction or fixture-style file list is the fastest path to a fix.
+  - type: input
+    id: bootlane-version
+    attributes:
+      label: Bootlane version
+      description: Run `bootlane --version` or `npx bootlane@latest --version`.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: Paste the exact command you ran.
+      render: bash
+      placeholder: "npx bootlane check . --format markdown"
+    validations:
+      required: true
+  - type: textarea
+    id: finding
+    attributes:
+      label: Finding or report snippet
+      description: Include the finding ID, severity, message, and relevant files.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Why this is a false positive
+      description: Explain what Bootlane should have recognized or ignored.
+    validations:
+      required: true
+  - type: dropdown
+    id: project-type
+    attributes:
+      label: Project type
+      options:
+        - Node
+        - Python
+        - Mixed Node/Python
+        - Unknown or other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction details
+      description: List relevant files or link a public repo. Please redact secrets.
+      placeholder: |
+        package.json
+        README.md
+        .github/workflows/ci.yml
+        src/index.ts
+    validations:
+      required: true
+  - type: dropdown
+    id: accuracy-lane
+    attributes:
+      label: Accuracy lane
+      description: Choose the closest 0.2.0 Accuracy Work Intake lane from docs/ROADMAP.md.
+      options:
+        - False-positive reduction
+        - Env var precision
+        - Package-manager command recognition
+        - Report clarity and scoring adjustment
+    validations:
+      required: true
+  - type: dropdown
+    id: accuracy-priority
+    attributes:
+      label: Accuracy priority
+      description: Choose the likely priority from docs/ROADMAP.md.
+      options:
+        - P0 trust regression
+        - P2 precision polish
+        - P3 speculative expansion
+    validations:
+      required: true
+  - type: dropdown
+    id: fixture-seed
+    attributes:
+      label: Fixture seed
+      description: Choose the closest first-batch 0.2.0 Fixture Seed Backlog seed from docs/ROADMAP.md, or choose New seed needed.
+      options:
+        - Happy-path false-positive guard
+        - Env placeholder precision guard
+        - Package-manager command variant guard
+        - Report wording and score clarity guard
+        - New seed needed
+    validations:
+      required: true
+  - type: textarea
+    id: seed-fit
+    attributes:
+      label: Seed fit or new seed rationale
+      description: Explain the matching trigger, expected first test, happy-path guard, or why this report needs a new seed.
+      placeholder: "This matches Happy-path false-positive guard because node-good-like setup reports a noisy finding; expected first test proves the finding is absent while node-good and python-good stay stable."
+    validations:
+      required: false
+  - type: input
+    id: fixture-target
+    attributes:
+      label: Fixture target
+      description: Name the expected `examples/fixtures` directory, focused unit test, or snapshot that should fail before the fix.
+      placeholder: "examples/fixtures/node-false-positive-..."
+    validations:
+      required: false
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected output
+      description: Describe the finding absence, severity, confidence, score, or message expected after the fix.
+    validations:
+      required: true
+  - type: textarea
+    id: happy-path-impact
+    attributes:
+      label: Happy-path impact
+      description: Which existing Node or Python happy-path fixtures should remain stable?
+      placeholder: "examples/fixtures/node-good and examples/fixtures/python-good should keep the same report shape."
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I have removed or redacted secrets, tokens, and private URLs.
+          required: true

@@ -1,0 +1,6 @@
+[project]
+name = "python-ci-missing-runtime-txt"
+version = "0.1.0"
+dependencies = [
+  "pytest"
+]

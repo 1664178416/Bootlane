@@ -1,0 +1,126 @@
+name: Missing detection
+description: Report a setup signal Bootlane should detect but missed.
+title: "[Missing detection]: "
+labels:
+  - missing-detection
+  - needs-triage
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when Bootlane misses a package manager, framework, env var, CI command, test setup, runtime version, or other readiness signal.
+  - type: input
+    id: bootlane-version
+    attributes:
+      label: Bootlane version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      render: bash
+      placeholder: "npx bootlane check . --verbose --no-color"
+    validations:
+      required: true
+  - type: textarea
+    id: missed-signal
+    attributes:
+      label: Missed signal
+      description: What should Bootlane have detected?
+      placeholder: "Bootlane should recognize `uv run pytest` in this workflow."
+    validations:
+      required: true
+  - type: textarea
+    id: current-output
+    attributes:
+      label: Current output
+      description: Paste the relevant report snippet or JSON fields.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: relevant-files
+    attributes:
+      label: Relevant files
+      description: Paste minimal file contents or list paths that show the missed signal.
+      render: markdown
+    validations:
+      required: true
+  - type: dropdown
+    id: accuracy-lane
+    attributes:
+      label: Accuracy lane
+      description: Choose the closest 0.2.0 Accuracy Work Intake lane from docs/ROADMAP.md.
+      options:
+        - Missing-detection coverage
+        - Env var precision
+        - Package-manager command recognition
+        - Report clarity and scoring adjustment
+    validations:
+      required: true
+  - type: dropdown
+    id: accuracy-priority
+    attributes:
+      label: Accuracy priority
+      description: Choose the likely priority from docs/ROADMAP.md.
+      options:
+        - P1 repeated supported miss
+        - P2 precision polish
+        - P3 speculative expansion
+    validations:
+      required: true
+  - type: dropdown
+    id: fixture-seed
+    attributes:
+      label: Fixture seed
+      description: Choose the closest first-batch 0.2.0 Fixture Seed Backlog seed from docs/ROADMAP.md, or choose New seed needed.
+      options:
+        - Supported signal miss guard
+        - Env placeholder precision guard
+        - Package-manager command variant guard
+        - Report wording and score clarity guard
+        - New seed needed
+    validations:
+      required: true
+  - type: textarea
+    id: seed-fit
+    attributes:
+      label: Seed fit or new seed rationale
+      description: Explain the matching trigger, expected first test, happy-path guard, or why this report needs a new seed.
+      placeholder: "This matches Supported signal miss guard because two supported Python repos miss the same uv command; expected first test asserts the command signal appears while python-good stays stable."
+    validations:
+      required: false
+  - type: input
+    id: fixture-target
+    attributes:
+      label: Fixture target
+      description: Name the expected `examples/fixtures` directory, focused unit test, or snapshot that should fail before the fix.
+      placeholder: "examples/fixtures/node-missing-..."
+    validations:
+      required: false
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected output
+      description: Describe the new finding, report field, severity, confidence, score, or message expected after the fix.
+    validations:
+      required: true
+  - type: textarea
+    id: happy-path-impact
+    attributes:
+      label: Happy-path impact
+      description: Which existing Node or Python happy-path fixtures should remain stable?
+      placeholder: "examples/fixtures/node-good and examples/fixtures/python-good should keep the same report shape."
+    validations:
+      required: false
+  - type: checkboxes
+    id: fixture
+    attributes:
+      label: Fixture value
+      options:
+        - label: This could be represented as a small fixture under `examples/fixtures`.
+          required: false
+        - label: I have removed or redacted secrets, tokens, and private URLs.
+          required: true

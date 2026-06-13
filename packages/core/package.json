@@ -1,0 +1,46 @@
+{
+  "name": "@bootlane/core",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Core analysis engine for Bootlane repository readiness checks.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "repository",
+    "diagnostics",
+    "readiness",
+    "static-analysis",
+    "node",
+    "python"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts.map",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b --pretty false",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "fast-glob": "^3.3.3",
+    "zod": "^3.25.0"
+  }
+}

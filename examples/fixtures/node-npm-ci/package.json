@@ -1,0 +1,19 @@
+{
+  "name": "node-npm-ci",
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "npm@10.8.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

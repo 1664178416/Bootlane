@@ -1,0 +1,7 @@
+{
+  "ignore": ["generated/**"],
+  "checks": {
+    "ci.github-actions.missing": "off"
+  }
+}
+

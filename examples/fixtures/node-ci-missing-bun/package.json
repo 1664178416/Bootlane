@@ -1,0 +1,19 @@
+{
+  "name": "node-ci-missing-bun",
+  "version": "0.1.0",
+  "type": "module",
+  "packageManager": "bun@1.1.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "vite",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "vite": "^6.0.0"
+  },
+  "devDependencies": {
+    "vitest": "^3.0.0"
+  }
+}

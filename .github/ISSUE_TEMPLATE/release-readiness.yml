@@ -1,0 +1,161 @@
+name: Release readiness evidence
+description: Track first-publish evidence for the manual Bootlane 0.1.0 release.
+title: "[Release]: 0.1.0 evidence"
+labels:
+  - release
+  - release-readiness
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this issue for the manual first-publish evidence record. Follow the Maintainer Execution Path and Evidence Section Guide in `docs/RELEASE_EVIDENCE.md`, run `pnpm release:evidence`, paste the generated snapshot below, review the Snapshot Focus Policy, Snapshot Reference Guide, and Snapshot Refresh Rules, complete the Release Closeout Checklist, and keep secrets, tokens, private contact addresses, `.npmrc`, auth headers, and full registry auth output out of public comments.
+
+        A green local gate is not publish approval. The final repository URL, npm access, npm registry state, security contact, package page rendering, and post-publish `npx` behavior still require manual or external confirmation.
+  - type: input
+    id: release-version
+    attributes:
+      label: Release version
+      description: First public release candidate version.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: evidence-owner
+    attributes:
+      label: Evidence owner
+      description: Maintainer responsible for updating this evidence record.
+      placeholder: "@maintainer"
+    validations:
+      required: true
+  - type: textarea
+    id: commit-tree-state
+    attributes:
+      label: Commit or tree state
+      description: Record the commit SHA, tag candidate, or explicit working tree note reviewed for this release.
+      render: markdown
+      placeholder: |
+        Commit:
+        Tag candidate:
+        Working tree note:
+    validations:
+      required: true
+  - type: textarea
+    id: evidence-snapshot
+    attributes:
+      label: Generated release evidence snapshot
+      description: Run `pnpm release:evidence` and paste the relevant compact `docs/RELEASE_EVIDENCE_SNAPSHOT.md` draft here; use the Snapshot Reference Guide for long guidance and the Snapshot Refresh Rules before reusing an older paste.
+      render: markdown
+      placeholder: |
+        Paste the generated release evidence snapshot or link the release PR/GitHub release draft that stores it.
+    validations:
+      required: true
+  - type: checkboxes
+    id: evidence-format
+    attributes:
+      label: Evidence format and safety
+      options:
+        - label: I filled the Evidence Record Header from `docs/RELEASE_EVIDENCE.md`.
+          required: false
+        - label: I am using the Evidence Entry Format for status, date/operator, output summary, required record, and evidence link fields.
+          required: false
+        - label: I reviewed the Evidence Redaction Examples before copying command output or manual review notes.
+          required: false
+        - label: I kept secrets, tokens, private contact details, `.npmrc`, auth headers, and full registry auth output out of public evidence.
+          required: true
+        - label: I reviewed the Snapshot Refresh Rules and regenerated the snapshot after any package metadata, release gate, workflow, or evidence-contract change.
+          required: false
+  - type: textarea
+    id: local-gate-evidence
+    attributes:
+      label: Local gate evidence
+      description: Summarize `pnpm verify:release` and any CI/local gate evidence. Link logs instead of pasting noisy output.
+      render: markdown
+      placeholder: |
+        Command:
+        Date/operator:
+        Output summary:
+        Evidence link:
+    validations:
+      required: false
+  - type: textarea
+    id: external-manual-evidence
+    attributes:
+      label: External and manual evidence
+      description: Cover External State Confirmations, including final repository URL, npm account access, package name availability, security contact readiness, package dry-runs, and packed install smoke.
+      render: markdown
+      placeholder: |
+        `git remote -v`:
+        `pnpm npm-names:check`:
+        npm account/access:
+        security contact:
+        `npm publish --dry-run --access public`:
+        `pnpm smoke:packed-install`:
+    validations:
+      required: false
+  - type: checkboxes
+    id: publish-window
+    attributes:
+      label: Publish window readiness
+      options:
+        - label: I reviewed the Evidence Staleness Rules and re-ran or re-reviewed stale evidence.
+          required: false
+        - label: I followed the Publish Window Checklist before attempting package publish.
+          required: false
+        - label: I used the Dry-Run Transcript Template for package dry-runs and packed install smoke evidence.
+          required: false
+        - label: I updated the Manual Decision Log before publish.
+          required: false
+        - label: I did not add npm publish automation, npm tokens, write permissions, or provenance settings before release automation is intentionally designed.
+          required: true
+  - type: dropdown
+    id: manual-decision
+    attributes:
+      label: Manual Decision Log status
+      description: Do not choose Proceed until all required current evidence is confirmed.
+      options:
+        - Pending
+        - Proceed
+        - Pause
+        - Blocked
+    validations:
+      required: true
+  - type: textarea
+    id: publish-evidence
+    attributes:
+      label: Publish evidence
+      description: Fill only after the Manual Decision Log is set to Proceed and packages are published in dependency order.
+      render: markdown
+      placeholder: |
+        `@bootlane/core` publish:
+        `bootlane` publish:
+        Publish order evidence:
+    validations:
+      required: false
+  - type: textarea
+    id: post-publish-evidence
+    attributes:
+      label: Post-publish evidence
+      description: Record package page review and published CLI checks after publish. Use the Post-Publish Verification Transcript from `docs/RELEASE_EVIDENCE.md`.
+      render: markdown
+      placeholder: |
+        npm package pages:
+        `npx bootlane@latest --version`:
+        `npx bootlane@latest check --help`:
+        `npx bootlane@latest check --format json`:
+        GitHub tag/release:
+    validations:
+      required: false
+  - type: textarea
+    id: release-closeout
+    attributes:
+      label: Release closeout
+      description: Complete the Release Closeout Checklist with final status, published package confirmation, tag or release link, unresolved follow-ups, and announcement readiness.
+      render: markdown
+      placeholder: |
+        Final release status:
+        Published package confirmation:
+        GitHub tag/release link:
+        Unresolved follow-ups:
+        Public announcement readiness:
+    validations:
+      required: false

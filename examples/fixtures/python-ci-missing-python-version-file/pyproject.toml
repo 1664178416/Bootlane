@@ -1,0 +1,6 @@
+[project]
+name = "python-ci-missing-python-version-file"
+version = "0.1.0"
+dependencies = [
+  "pytest"
+]

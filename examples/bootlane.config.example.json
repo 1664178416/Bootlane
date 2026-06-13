@@ -1,0 +1,10 @@
+{
+  "ignore": ["generated/**", "fixtures/**"],
+  "failOn": "critical",
+  "checks": {
+    "ci.github-actions.missing": "info",
+    "readme.test.missing": "warn",
+    "runtime.node-version.missing": "error"
+  }
+}
+

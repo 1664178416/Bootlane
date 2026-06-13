@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Node ${{ matrix.node-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 22
+          - 24
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 8.15.3
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Validate example report
+        run: pnpm example:report:check
+
+      - name: Test
+        run: pnpm test
+
+      - name: Validate contributing docs
+        run: pnpm docs:check-contributing
+
+      - name: Validate GitHub templates
+        run: pnpm docs:check-templates
+
+      - name: Validate triage docs
+        run: pnpm docs:check-triage
+
+      - name: Validate quality gates docs
+        run: pnpm docs:check-quality-gates
+
+      - name: Validate CI workflow contract
+        run: pnpm ci:workflow:check
+
+      - name: Validate security docs
+        run: pnpm docs:check-security
+
+      - name: Validate package contents docs
+        run: pnpm docs:check-package-contents
+
+      - name: Validate release evidence docs
+        run: pnpm docs:check-release-evidence
+
+      - name: Validate release evidence snapshot
+        run: pnpm release:evidence:check
+
+      - name: Validate release gate contracts
+        run: pnpm release:gates:check
+
+      - name: Validate changelog docs
+        run: pnpm docs:check-changelog
+
+      - name: Validate check ID docs
+        run: pnpm docs:check-ids
+
+      - name: Validate release blocker docs
+        run: pnpm docs:check-release-blockers
+
+      - name: Validate package metadata
+        run: pnpm metadata:check
+
+      - name: Validate release safety
+        run: pnpm release-safety:check
+
+      - name: Validate release safety fixtures
+        run: pnpm release-safety:fixtures
+
+      - name: Validate release safety fixture docs
+        run: pnpm docs:check-release-safety-fixtures
+
+      - name: Smoke test package bin
+        run: pnpm smoke:bin
+
+      - name: Validate package contents
+        run: pnpm pack:dry-run

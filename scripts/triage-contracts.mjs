@@ -3247,6 +3247,273 @@ export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecor
   }
 ];
 
+export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordTemplates = [
+  {
+    template: "Accepted refreshed audit outcome closeout refresh review outcome audit record",
+    outcome: "Accept refreshed audit outcome closeout refresh review outcome record audit",
+    useWhen:
+      "Audit outcome routing accepts the refreshed audit outcome closeout refresh review outcome record as current enough to support the named continuation, closure, review resume, parking, blocking, supersede, or escalation path.",
+    requiredInputs:
+      "Routing outcome, completed audit checklist, source refreshed audit outcome closeout refresh review outcome record, owner, route, verification summary or non-applicability, default-path boundary decision, and next action.",
+    recordBody:
+      "Record the accepted audit outcome, checklist items passed, source outcome record, owner, route, verification summary, default-path boundary decision, scope boundary, and next action.",
+    followUp:
+      "Proceed only with the named route and keep unrelated detector, scanner, reporter, scoring, schema, or example-output work outside the accepted refreshed audit outcome closeout refresh review outcome path."
+  },
+  {
+    template: "Refresh-needed refreshed audit outcome closeout refresh review outcome audit record",
+    outcome: "Refresh refreshed audit outcome closeout refresh review outcome record",
+    useWhen:
+      "Audit outcome routing finds the refreshed audit outcome closeout refresh review outcome record remains useful but route match, required inputs, traceability, owner, follow-up, source link, or closure condition needs another refresh.",
+    requiredInputs:
+      "Routing outcome, completed audit checklist, stale fields, current refreshed audit outcome closeout refresh review outcome record, owner or missing-owner status, requested refresh, evidence links to update, rerun commands or non-applicability, and paused state.",
+    recordBody:
+      "Record refresh-needed audit outcome, stale fields, refresh owner, requested update, evidence links, command rerun plan or non-applicability, paused state, and next audit date.",
+    followUp:
+      "Refresh only stale fields, rerun focused verification only when evidence changed, and rerun the audit checklist and audit outcome routing before continuation or closure proceeds."
+  },
+  {
+    template: "Blocked refreshed audit outcome closeout refresh review outcome audit record",
+    outcome: "Escalate or keep refreshed audit outcome closeout refresh review outcome blocked",
+    useWhen:
+      "Audit outcome routing keeps continuation, closure, review resume, parking, blocking, supersede, or escalation resolution blocked because blocker evidence, owner, release verification, unsupported route, or default-path boundary remains incomplete.",
+    requiredInputs:
+      "Routing outcome, completed audit checklist, blocker or boundary evidence gap, affected surface, owner or missing-owner status, failed or missing command output, release verification requirement, blocker link, resolution condition, and next review date.",
+    recordBody:
+      "Record blocked audit outcome, blocker link, affected surface, owner, missing evidence, command result, release verification decision, read-only boundary status, resolution condition, paused route, and next review date.",
+    followUp:
+      "Keep closure, continuation, and review resume paused until the owner links refreshed evidence and reroutes through blocker escalation or refreshed record audit as required."
+  },
+  {
+    template: "Parked or deferred refreshed audit outcome closeout refresh review outcome audit record",
+    outcome: "Park or defer refreshed audit outcome closeout refresh review outcome",
+    useWhen:
+      "Audit outcome routing confirms the record is current but retained route, deferred scope, owner capacity, target list, roadmap status, revisit date, or stop condition keeps the refreshed audit outcome closeout refresh review outcome parked or deferred.",
+    requiredInputs:
+      "Routing outcome, completed audit checklist, parked or deferred refreshed audit outcome closeout refresh review outcome record, owner, retained scope, deferred scope, target list or roadmap candidate, revisit date or stop condition, paused state, and default-path boundary decision.",
+    recordBody:
+      "Record parked or deferred audit outcome, owner, retained scope, deferred scope, target list or roadmap status, revisit date or stop condition, paused state, default-path boundary decision, and next action.",
+    followUp:
+      "Keep deferred implementation outside the current PR and revisit only through the recorded owner, target, and stop or review condition."
+  },
+  {
+    template: "Closed or superseded refreshed audit outcome closeout refresh review outcome audit record",
+    outcome: "Close or supersede refreshed audit outcome closeout refresh review outcome",
+    useWhen:
+      "Audit outcome routing confirms the refreshed audit outcome closeout refresh review outcome is obsolete, superseded by a newer route, already closed by linked evidence, or out of scope without remaining fixture-backed follow-up work.",
+    requiredInputs:
+      "Routing outcome, completed audit checklist, superseding route or closure rationale, refreshed source link, owner, no remaining action note, default-path boundary decision, closure or supersede link, and final status.",
+    recordBody:
+      "Record closed or superseded audit outcome, closure rationale, superseding issue or PR link, owner, default-path boundary decision, no remaining fixture-backed action note, roadmap update if needed, and final status.",
+    followUp:
+      "Close or supersede only after links and boundary evidence are current; route any new fixture-backed scope through a fresh intake or follow-up path."
+  }
+];
+
+export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutChecklist = [
+  {
+    item: "Refreshed audit outcome closeout refresh review outcome audit record is complete",
+    templateScope:
+      "Accepted refreshed audit outcome closeout refresh review outcome audit record, Refresh-needed refreshed audit outcome closeout refresh review outcome audit record, Blocked refreshed audit outcome closeout refresh review outcome audit record, Parked or deferred refreshed audit outcome closeout refresh review outcome audit record, Closed or superseded refreshed audit outcome closeout refresh review outcome audit record",
+    appliesWhen:
+      "Any refreshed audit outcome closeout refresh review outcome audit record is created before closure, continuation, refresh, escalation, parking, deferral, supersede, or final closeout relies on it.",
+    requiredEvidence:
+      "Selected audit outcome record template, routed audit outcome, completed required inputs, record body, follow-up, owner, source refreshed audit outcome closeout refresh review outcome record link, and current queued PR or issue link.",
+    passWhen:
+      "The selected template is filled, its outcome matches audit outcome routing, and the source record, owner, follow-up, current route, and closure or continuation decision are linked without mixed states.",
+    ifMissing:
+      "Return to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates and keep closure or continuation paused until the audit outcome record is complete.",
+    record:
+      "Record template used, routed audit outcome, completed fields, owner, source link, current PR or issue link, and whether closure or continuation remains paused or can proceed."
+  },
+  {
+    item: "Allowed closure or continuation is explicit",
+    templateScope:
+      "Accepted refreshed audit outcome closeout refresh review outcome audit record, Refresh-needed refreshed audit outcome closeout refresh review outcome audit record",
+    appliesWhen:
+      "The audit outcome record would allow the accepted route to proceed, refresh the record, resume review, close, continue, park, defer, supersede, or return to escalation resolution.",
+    requiredEvidence:
+      "Accepted or refresh-needed audit outcome record, allowed closure or continuation route, owner, verification summary or non-applicability, retained scope, deferred scope, follow-up boundary, and default-path boundary decision.",
+    passWhen:
+      "The closure or continuation route is named, owned, limited to the routed scope, and does not start detector, scanner, reporter, scoring, schema, or example-output work from the closeout checklist itself.",
+    ifMissing:
+      "Keep closure or continuation paused and reroute through audit outcome routing or refresh the audit outcome record before closeout, review resume, parking, deferral, supersede, or escalation resolution proceeds.",
+    record:
+      "Record allowed closure or continuation route, owner, verification summary, retained scope, deferred scope, default-path boundary, and the condition that allows work to proceed."
+  },
+  {
+    item: "Blocker, escalation, or deferral is enforceable",
+    templateScope:
+      "Blocked refreshed audit outcome closeout refresh review outcome audit record, Parked or deferred refreshed audit outcome closeout refresh review outcome audit record, Closed or superseded refreshed audit outcome closeout refresh review outcome audit record",
+    appliesWhen:
+      "The audit outcome record keeps closure, continuation, review resume, parking, deferral, supersede, or escalation resolution blocked, parked, deferred, closed, or superseded because evidence, owner, route, or default-path boundary controls the next step.",
+    requiredEvidence:
+      "Blocked, parked, deferred, closed, or superseded audit outcome record, owner, missing evidence or closure rationale, blocker or superseding link, paused state, target list or roadmap status, read-only boundary decision, release verification requirement when relevant, and resolution or final condition.",
+    passWhen:
+      "The blocked, parked, deferred, closed, or superseded state has one owner, one visible condition, linked blocker or superseding evidence when relevant, and no hidden implementation path for deferred or closed scope.",
+    ifMissing:
+      "Assign an owner, add blocker or superseding evidence, refresh the audit outcome record, or keep closure and continuation paused until the state is enforceable.",
+    record:
+      "Record blocker, parked, deferred, closed, or superseded state, owner, missing evidence or closure rationale, target or superseding link, paused state, resolution or final condition, and next review date if any."
+  },
+  {
+    item: "Follow-up ownership and stop condition are recorded",
+    templateScope:
+      "Accepted refreshed audit outcome closeout refresh review outcome audit record, Refresh-needed refreshed audit outcome closeout refresh review outcome audit record, Blocked refreshed audit outcome closeout refresh review outcome audit record, Parked or deferred refreshed audit outcome closeout refresh review outcome audit record, Closed or superseded refreshed audit outcome closeout refresh review outcome audit record",
+    appliesWhen:
+      "The audit outcome record leaves any next action, refresh, blocker resolution, parked review, deferred scope, closeout, supersede, or final no-action decision.",
+    requiredEvidence:
+      "Owner, next action, stop condition or revisit date, closure or supersede link when relevant, queue or roadmap target, paused/proceed decision, retained scope, deferred scope, and final status when closing.",
+    passWhen:
+      "Every continuing, paused, parked, deferred, blocked, closed, or superseded state has one owner and one stop, revisit, closure, or supersede condition that a maintainer can verify later.",
+    ifMissing:
+      "Assign ownership, add a revisit or stop condition, or keep the audit outcome record open before closure, continuation, review resume, parking, deferral, or supersede proceeds.",
+    record:
+      "Record owner, follow-up action, retained and deferred scope, stop condition, revisit date if needed, paused or proceed state, closure or supersede link, and final status when applicable."
+  },
+  {
+    item: "Default-path closeout evidence is current",
+    templateScope:
+      "Accepted refreshed audit outcome closeout refresh review outcome audit record, Refresh-needed refreshed audit outcome closeout refresh review outcome audit record, Blocked refreshed audit outcome closeout refresh review outcome audit record, Parked or deferred refreshed audit outcome closeout refresh review outcome audit record, Closed or superseded refreshed audit outcome closeout refresh review outcome audit record",
+    appliesWhen:
+      "Any audit outcome record closeout would allow work to continue, close, stay parked, remain blocked, defer, supersede, escalate, refresh, or resume after audit outcome record templates.",
+    requiredEvidence:
+      "Read-only smoke result or explicit non-applicability, release verification decision, no target-file write note, no network requirement note, no project-script execution note, scanner-boundary note, verification summary, owner, and default-path boundary decision.",
+    passWhen:
+      "Verification matches the audit outcome record decision and proves or explicitly preserves default `bootlane check` as local, deterministic, read-only, network-free, and free of project script execution.",
+    ifMissing:
+      "Rerun read-only smoke, escalate a blocker, refresh boundary evidence, or keep closure, continuation, parking, deferral, blocking, supersede, or review resume paused until boundary evidence is current.",
+    record:
+      "Record verification summary, read-only smoke or non-applicability, release verification decision, no-write/no-network/no-script notes, scanner boundary, owner, and default-path boundary result."
+  }
+];
+
+export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordTemplates = [
+  {
+    template: "Completed refreshed audit outcome closeout refresh review outcome audit closeout record",
+    item: "Refreshed audit outcome closeout refresh review outcome audit record is complete",
+    useWhen:
+      "Closeout confirms the refreshed audit outcome closeout refresh review outcome audit record is filled, routed, owned, linked, and free of mixed closure, continuation, refresh, escalation, parking, deferral, supersede, or final closeout states.",
+    requiredInputs:
+      "Closeout item, selected audit outcome record template, routed audit outcome, completed fields, owner, source refreshed audit outcome closeout refresh review outcome record link, current queued PR or issue link, and paused-or-proceed decision.",
+    recordBody:
+      "Record the completed audit outcome template, routed outcome, source and current links, owner, required fields checked, mixed-state check result, and whether closure or continuation remains paused or can proceed.",
+    followUp:
+      "Allow the next closeout or continuation check only after the source audit outcome record and current route are linked; otherwise refresh the audit outcome record before closure or continuation proceeds."
+  },
+  {
+    template: "Allowed refreshed audit outcome closure or continuation record",
+    item: "Allowed closure or continuation is explicit",
+    useWhen:
+      "Closeout confirms the accepted or refresh-needed audit outcome record may close, continue, refresh, resume review, park, defer, supersede, or return to escalation resolution without broadening scope.",
+    requiredInputs:
+      "Closeout item, accepted or refresh-needed audit outcome record, allowed closure or continuation route, owner, verification summary or non-applicability, retained scope, deferred scope, default-path boundary decision, and proceed condition.",
+    recordBody:
+      "Record the allowed closure or continuation route, owner, verification summary, retained and deferred scope, default-path boundary, proceed condition, and explicit note that implementation does not start from closeout.",
+    followUp:
+      "Proceed only on the named route and send unrelated detector, scanner, reporter, scoring, schema, or example-output work back to its follow-up path."
+  },
+  {
+    template: "Enforceable refreshed audit outcome blocker or deferral record",
+    item: "Blocker, escalation, or deferral is enforceable",
+    useWhen:
+      "Closeout confirms blocker, escalation, parked, deferred, closed, or superseded state is enforceable and cannot be bypassed by closure, continuation, review resume, parking, deferral, supersede, or escalation resolution.",
+    requiredInputs:
+      "Closeout item, blocked, parked, deferred, closed, or superseded audit outcome record, owner, missing evidence or closure rationale, blocker or superseding link, paused state, target list or roadmap status, read-only boundary decision, release verification requirement when relevant, and resolution or final condition.",
+    recordBody:
+      "Record enforceable state, owner, missing evidence or closure rationale, blocker or superseding link, paused state, target or roadmap status, read-only boundary decision, release verification requirement, and resolution or final condition.",
+    followUp:
+      "Keep closure or continuation paused until the named owner satisfies the resolution condition, or close/supersede only when final evidence and boundary notes are current."
+  },
+  {
+    template: "Owned refreshed audit outcome follow-up stop-condition record",
+    item: "Follow-up ownership and stop condition are recorded",
+    useWhen:
+      "Closeout confirms continuing, refreshed, blocked, parked, deferred, closed, or superseded audit outcome work has one owner, one follow-up, and one stop, revisit, closure, or supersede condition.",
+    requiredInputs:
+      "Closeout item, owner, next action, stop condition or revisit date, closure or supersede link when relevant, queue or roadmap target, paused/proceed decision, retained scope, deferred scope, and final status when closing.",
+    recordBody:
+      "Record owner, follow-up action, retained and deferred scope, stop condition, revisit date if needed, paused or proceed state, closure or supersede link, remaining owner handoff, and final status when applicable.",
+    followUp:
+      "Continue, pause, park, defer, close, or supersede only through the recorded owner and stop condition; refresh the audit outcome record when ownership changes."
+  },
+  {
+    template: "Current default-path refreshed audit outcome closeout evidence record",
+    item: "Default-path closeout evidence is current",
+    useWhen:
+      "Closeout confirms verification evidence is current enough for the audit outcome record decision to continue, close, park, remain blocked, defer, supersede, escalate, refresh, or resume.",
+    requiredInputs:
+      "Closeout item, read-only smoke result or explicit non-applicability, release verification decision, no target-file write note, no network requirement note, no project-script execution note, scanner-boundary note, verification summary, owner, and default-path boundary decision.",
+    recordBody:
+      "Record verification summary, read-only smoke or non-applicability, release verification decision, no-write/no-network/no-script notes, scanner boundary, owner, boundary result, and whether the route remains paused or can proceed.",
+    followUp:
+      "Proceed only while default-path evidence stays current; rerun read-only smoke, refresh boundary evidence, or escalate a blocker before stale evidence supports closure or continuation."
+  }
+];
+
+export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshRules = [
+  {
+    trigger: "Refreshed audit outcome closeout source changed",
+    recordTemplate: "Completed refreshed audit outcome closeout refresh review outcome audit closeout record",
+    refreshWhen:
+      "Selected audit outcome record template, routed outcome, source refreshed audit outcome closeout refresh review outcome record link, current queued PR or issue link, owner, completed fields, mixed-state check result, or paused-or-proceed decision changes after closeout was recorded.",
+    updateRecord:
+      "Update the completed audit outcome template, routed outcome, source and current links, owner, required fields checked, mixed-state check result, and whether closure or continuation remains paused or can proceed.",
+    rerun:
+      "Rerun audit outcome routing and the audit outcome record closeout checklist before allowing the next closeout or continuation check.",
+    blockWhenStale:
+      "Do not close, continue, resume review, park, defer, supersede, or escalate from a completed closeout record that points to stale source, owner, route, or mixed-state evidence."
+  },
+  {
+    trigger: "Allowed refreshed audit outcome closure or continuation route changed",
+    recordTemplate: "Allowed refreshed audit outcome closure or continuation record",
+    refreshWhen:
+      "Allowed closure or continuation route, retained scope, deferred scope, verification summary, owner, default-path boundary decision, or proceed condition changes before closure, continuation, refresh, review resume, parking, deferral, supersede, or escalation resolution proceeds.",
+    updateRecord:
+      "Update the allowed closure or continuation route, owner, verification summary, retained and deferred scope, default-path boundary, proceed condition, and explicit note that implementation does not start from closeout.",
+    rerun:
+      "Rerun focused verification that supports the changed route and rerun closeout before closure or continuation continues.",
+    blockWhenStale:
+      "Do not use an older allowed closure or continuation record to close, continue, refresh, resume review, park, defer, supersede, resolve escalation, or start broader implementation work."
+  },
+  {
+    trigger: "Refreshed audit outcome blocker or deferral evidence changed",
+    recordTemplate: "Enforceable refreshed audit outcome blocker or deferral record",
+    refreshWhen:
+      "Missing evidence, closure rationale, blocker or superseding link, paused state, target list or roadmap status, release verification requirement, read-only boundary decision, owner, resolution condition, final condition, or next review date changes.",
+    updateRecord:
+      "Update enforceable state, owner, missing evidence or closure rationale, blocker or superseding link, paused state, target or roadmap status, read-only boundary decision, release verification requirement, and resolution or final condition.",
+    rerun:
+      "Rerun read-only smoke and `pnpm verify:release` when the changed blocker, deferral, closure, supersede, package, public-surface, or default-path evidence touches release or boundary behavior.",
+    blockWhenStale:
+      "Keep closure, continuation, review resume, parking, deferral, supersede, and escalation resolution paused while blocker, deferral, closure, supersede, or resolution evidence is stale."
+  },
+  {
+    trigger: "Refreshed audit outcome follow-up ownership or stop condition changed",
+    recordTemplate: "Owned refreshed audit outcome follow-up stop-condition record",
+    refreshWhen:
+      "Owner, next action, retained scope, deferred scope, stop condition, revisit date, paused/proceed state, queue or roadmap target, closure or supersede link, remaining owner handoff, or final status changes.",
+    updateRecord:
+      "Update owner, follow-up action, retained and deferred scope, stop condition, revisit date if needed, paused or proceed state, closure or supersede link, remaining owner handoff, and final status when applicable.",
+    rerun:
+      "Rerun docs-only triage checks and any focused verification needed for changed ownership, retained or deferred scope, roadmap target, closure link, supersede link, or final status.",
+    blockWhenStale:
+      "Do not close, continue, pause, park, defer, supersede, or start deferred implementation while ownership, follow-up, stop condition, closure link, supersede link, or final status is stale."
+  },
+  {
+    trigger: "Current default-path refreshed audit outcome closeout evidence changed",
+    recordTemplate: "Current default-path refreshed audit outcome closeout evidence record",
+    refreshWhen:
+      "Read-only smoke result, explicit non-applicability, release verification decision, no-write note, no-network note, no-project-script note, scanner-boundary note, verification summary, owner, boundary result, or paused-or-proceed route changes after closeout.",
+    updateRecord:
+      "Update verification summary, read-only smoke or non-applicability, release verification decision, no-write/no-network/no-script notes, scanner boundary, owner, boundary result, and whether the route remains paused or can proceed.",
+    rerun:
+      "Rerun read-only smoke and escalate to `pnpm verify:release` when release surfaces, package behavior, scanner boundary, or default-path behavior changed.",
+    blockWhenStale:
+      "Do not proceed, close, park, block, defer, supersede, escalate, or resume from stale default-path evidence; rerun verification or escalate a blocker first."
+  }
+];
+
 export const accuracyIntakeClosureCriteria = [
 
   {

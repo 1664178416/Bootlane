@@ -4220,3 +4220,178 @@ Acceptance:
 - `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Checklist entry points disappear.
 - `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit checklist contract.
 - Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.
+
+### Iteration 150: Accuracy Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing
+
+Goal:
+
+Define outcome routing after queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit checklist, so accepted audits, refreshed records, blocker escalations, parked or deferred outcomes, and closed or superseded refreshed audit outcome closeout refresh review outcomes land in one visible route before closure or continuation proceeds.
+
+Status:
+
+Implemented in the MVP codebase.
+
+Scope:
+
+- Add accuracy seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome routing to `scripts/triage-contracts.mjs`.
+- Cover accept refreshed audit outcome closeout refresh review outcome record audit, refresh refreshed audit outcome closeout refresh review outcome record, escalate or keep refreshed audit outcome closeout refresh review outcome blocked, park or defer refreshed audit outcome closeout refresh review outcome, and close or supersede refreshed audit outcome closeout refresh review outcome.
+- Tie every routing entry to known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Checklist items through its review scope.
+- Record outcome, review scope, applies-when condition, required evidence, route, maintainer action, and record guidance for each entry.
+- Update `docs/ROADMAP.md` with Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing under 0.2.0 Accuracy Work Intake, between the audit checklist and Accuracy Work Intake Closure Criteria.
+- Update `docs/TRIAGE.md` so top guidance, PR triage, and closing criteria require the audit outcome route after refreshed audit outcome closeout refresh review outcome record audits.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` so seed-routed accuracy PRs confirm refreshed audit outcome closeout refresh review outcome record audits route before closure or continuation.
+- Update `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` so launch and contributor workflows mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing.
+- Update `scripts/check-triage-doc.mjs`, `scripts/check-github-templates.mjs`, `scripts/check-release-blockers-doc.mjs`, `scripts/check-changelog-doc.mjs`, `scripts/check-contributing-doc.mjs`, and `scripts/check-release-gate-contracts.mjs` so the audit outcome routing stays synchronized with the shared triage contract.
+
+Acceptance:
+
+- `docs/ROADMAP.md` documents each queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome routing outcome, review scope, applies-when condition, required evidence, route, maintainer action, and record guidance.
+- Every routing review scope references known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Checklist items.
+- `docs/TRIAGE.md` points top guidance, PR triage, and closing criteria to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing after audit checklist review.
+- `.github/PULL_REQUEST_TEMPLATE.md` asks seed-routed accuracy PRs to confirm refreshed audit outcome closeout refresh review outcome record audits route before closure or continuation.
+- `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing as a planning and contribution boundary.
+- `pnpm docs:check-triage` fails if Roadmap, Triage, or Launch drift from `accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRouting` or if a routing review scope references an unknown checklist item.
+- `pnpm docs:check-templates` fails if template-adjacent docs lose the Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing entry point or if a routing entry references an unknown checklist item.
+- `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing entry points disappear.
+- `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome routing contract.
+- Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.
+
+### Iteration 151: Accuracy Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates
+
+Goal:
+
+Define record templates after queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome routing, so accepted audits, refreshed records, blocker escalations, parked or deferred outcomes, and closed or superseded refreshed audit outcome closeout refresh review outcomes consistently capture required inputs, record body, and follow-up before closure or continuation proceeds.
+
+Status:
+
+Implemented in the MVP codebase.
+
+Scope:
+
+- Add accuracy seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record templates to `scripts/triage-contracts.mjs`.
+- Cover accepted refreshed audit outcome closeout refresh review outcome audit record, refresh-needed refreshed audit outcome closeout refresh review outcome audit record, blocked refreshed audit outcome closeout refresh review outcome audit record, parked or deferred refreshed audit outcome closeout refresh review outcome audit record, and closed or superseded refreshed audit outcome closeout refresh review outcome audit record.
+- Tie every record template to a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing outcome.
+- Record template, outcome, use-when condition, required inputs, record body, and follow-up for each entry.
+- Update `docs/ROADMAP.md` with Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates under 0.2.0 Accuracy Work Intake, between audit outcome routing and Accuracy Work Intake Closure Criteria.
+- Update `docs/TRIAGE.md` so top guidance, PR triage, and closing criteria require the matching record template after audit outcome routing.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` so seed-routed accuracy PRs confirm routed refreshed audit outcome closeout refresh review outcome audits use the matching record template.
+- Update `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` so launch and contributor workflows mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates.
+- Update `scripts/check-triage-doc.mjs`, `scripts/check-github-templates.mjs`, `scripts/check-release-blockers-doc.mjs`, `scripts/check-changelog-doc.mjs`, `scripts/check-contributing-doc.mjs`, and `scripts/check-release-gate-contracts.mjs` so the audit outcome record templates stay synchronized with the shared triage contract.
+
+Acceptance:
+
+- `docs/ROADMAP.md` documents each queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record template, outcome, use-when condition, required inputs, record body, and follow-up.
+- Every template references a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Routing outcome.
+- `docs/TRIAGE.md` points top guidance, PR triage, and closing criteria to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates after audit outcome routing.
+- `.github/PULL_REQUEST_TEMPLATE.md` asks seed-routed accuracy PRs to confirm routed refreshed audit outcome closeout refresh review outcome audits use matching record templates before closure or continuation.
+- `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates as a planning and contribution boundary.
+- `pnpm docs:check-triage` fails if Roadmap, Triage, or Launch drift from `accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordTemplates` or if a template references an unknown audit outcome.
+- `pnpm docs:check-templates` fails if template-adjacent docs lose the Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates entry point or if a template references an unknown audit outcome.
+- `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates entry points disappear.
+- `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record templates contract.
+- Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.
+
+### Iteration 152: Accuracy Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist
+
+Goal:
+
+Define a closeout checklist after queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record templates, so every accepted, refresh-needed, blocked, parked or deferred, and closed or superseded refreshed audit outcome closeout refresh review outcome audit record is checked for completion, allowed closure or continuation, enforceable blocker/deferral/closure state, ownership, stop conditions, and default-path evidence before closure or continuation relies on it.
+
+Status:
+
+Implemented in the MVP codebase.
+
+Scope:
+
+- Add accuracy seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout checklist to `scripts/triage-contracts.mjs`.
+- Cover audit outcome record completeness, allowed closure or continuation, enforceable blocker/deferral/closure state, follow-up ownership and stop condition, and current default-path closeout evidence.
+- Tie every closeout checklist template scope to a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates entry.
+- Record item, template scope, applies-when condition, required evidence, pass condition, missing-evidence action, and record guidance for each entry.
+- Update `docs/ROADMAP.md` with Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist under 0.2.0 Accuracy Work Intake, between audit outcome record templates and Accuracy Work Intake Closure Criteria.
+- Update `docs/TRIAGE.md` so top guidance, PR triage, and closing criteria require the closeout checklist after audit outcome record templates.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` so seed-routed accuracy PRs confirm audit outcome records pass the closeout checklist before closure or continuation.
+- Update `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` so launch and contributor workflows mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist.
+- Update `scripts/check-triage-doc.mjs`, `scripts/check-github-templates.mjs`, `scripts/check-release-blockers-doc.mjs`, `scripts/check-changelog-doc.mjs`, `scripts/check-contributing-doc.mjs`, and `scripts/check-release-gate-contracts.mjs` so the closeout checklist stays synchronized with the shared triage contract.
+
+Acceptance:
+
+- `docs/ROADMAP.md` documents each queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout checklist item, template scope, applies-when condition, required evidence, pass condition, missing-evidence action, and record guidance.
+- Every closeout checklist template scope references a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Templates entry.
+- `docs/TRIAGE.md` points top guidance, PR triage, and closing criteria to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist after audit outcome record templates.
+- `.github/PULL_REQUEST_TEMPLATE.md` asks seed-routed accuracy PRs to confirm audit outcome records pass the closeout checklist before closure or continuation.
+- `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist as a planning and contribution boundary.
+- `pnpm docs:check-triage` fails if Roadmap, Triage, or Launch drift from `accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutChecklist` or if a closeout checklist template scope references an unknown template.
+- `pnpm docs:check-templates` fails if template-adjacent docs lose the Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist entry point or if a closeout checklist references an unknown template.
+- `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist entry points disappear.
+- `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout checklist contract.
+- Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.
+
+### Iteration 153: Accuracy Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates
+
+Goal:
+
+Define closeout record templates after queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout checklist, so completed records, closure or continuation decisions, blocker/deferral/closure enforcement, ownership stop conditions, and default-path evidence leave required inputs, record body, and follow-up before closure or continuation proceeds.
+
+Status:
+
+Implemented in the MVP codebase.
+
+Scope:
+
+- Add accuracy seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record templates to `scripts/triage-contracts.mjs`.
+- Cover completed audit closeout record, allowed closure or continuation record, enforceable blocker or deferral record, owned follow-up stop-condition record, and current default-path closeout evidence record.
+- Tie every closeout record template to a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist item.
+- Record template, item, use-when condition, required inputs, record body, and follow-up for each entry.
+- Update `docs/ROADMAP.md` with Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates under 0.2.0 Accuracy Work Intake, between the closeout checklist and Accuracy Work Intake Closure Criteria.
+- Update `docs/TRIAGE.md` so top guidance, PR triage, and closing criteria require matching closeout record templates after the closeout checklist.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` so seed-routed accuracy PRs confirm audit outcome closeout decisions use matching record templates before closure or continuation.
+- Update `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` so launch and contributor workflows mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates.
+- Update `scripts/check-triage-doc.mjs`, `scripts/check-github-templates.mjs`, `scripts/check-release-blockers-doc.mjs`, `scripts/check-changelog-doc.mjs`, `scripts/check-contributing-doc.mjs`, and `scripts/check-release-gate-contracts.mjs` so the closeout record templates stay synchronized with the shared triage contract.
+
+Acceptance:
+
+- `docs/ROADMAP.md` documents each queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record template, item, use-when condition, required inputs, record body, and follow-up.
+- Every closeout record template references a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Checklist item.
+- `docs/TRIAGE.md` points top guidance, PR triage, and closing criteria to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates after the closeout checklist.
+- `.github/PULL_REQUEST_TEMPLATE.md` asks seed-routed accuracy PRs to confirm audit outcome closeout decisions use matching record templates before closure or continuation.
+- `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates as a planning and contribution boundary.
+- `pnpm docs:check-triage` fails if Roadmap, Triage, or Launch drift from `accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordTemplates` or if a closeout record template references an unknown closeout checklist item.
+- `pnpm docs:check-templates` fails if template-adjacent docs lose the Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates entry point or if a closeout record template references an unknown closeout checklist item.
+- `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates entry points disappear.
+- `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record templates contract.
+- Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.
+
+### Iteration 154: Accuracy Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules
+
+Goal:
+
+Define refresh rules after queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record templates, so stale source evidence, closure or continuation routes, blocker/deferral/closure evidence, ownership, stop conditions, and default-path evidence are refreshed before closure or continuation proceeds.
+
+Status:
+
+Implemented in the MVP codebase.
+
+Scope:
+
+- Add accuracy seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh rules to `scripts/triage-contracts.mjs`.
+- Cover refreshed audit outcome closeout source changes, allowed closure or continuation route changes, blocker or deferral evidence changes, follow-up ownership or stop-condition changes, and current default-path closeout evidence changes.
+- Tie every refresh rule to a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates entry.
+- Record trigger, record template, refresh condition, update record, rerun command guidance, and stale-blocking rule for each entry.
+- Update `docs/ROADMAP.md` with Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules under 0.2.0 Accuracy Work Intake, between closeout record templates and Accuracy Work Intake Closure Criteria.
+- Update `docs/TRIAGE.md` so top guidance, PR triage, and closing criteria require refresh rules after closeout record templates.
+- Update `.github/PULL_REQUEST_TEMPLATE.md` so seed-routed accuracy PRs confirm stale audit outcome closeout records are refreshed before closure or continuation.
+- Update `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` so launch and contributor workflows mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules.
+- Update `scripts/check-triage-doc.mjs`, `scripts/check-github-templates.mjs`, `scripts/check-release-blockers-doc.mjs`, `scripts/check-changelog-doc.mjs`, `scripts/check-contributing-doc.mjs`, and `scripts/check-release-gate-contracts.mjs` so the refresh rules stay synchronized with the shared triage contract.
+
+Acceptance:
+
+- `docs/ROADMAP.md` documents each queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh trigger, record template, refresh condition, update record, rerun command guidance, and stale-blocking rule.
+- Every refresh rule references a known Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Templates entry.
+- `docs/TRIAGE.md` points top guidance, PR triage, and closing criteria to Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules after closeout record templates.
+- `.github/PULL_REQUEST_TEMPLATE.md` asks seed-routed accuracy PRs to confirm stale audit outcome closeout records are refreshed before closure or continuation.
+- `docs/LAUNCH.md`, `CONTRIBUTING.md`, `docs/TECH_STACK.md`, and `CHANGELOG.md` mention Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules as a planning and contribution boundary.
+- `pnpm docs:check-triage` fails if Roadmap, Triage, or Launch drift from `accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshRules` or if a refresh rule references an unknown closeout record template.
+- `pnpm docs:check-templates` fails if template-adjacent docs lose the Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules entry point or if a refresh rule references an unknown closeout record template.
+- `pnpm docs:check-release-blockers`, `pnpm docs:check-changelog`, and `pnpm docs:check-contributing` fail if Seed Fixture Implementation Queued PR Follow-Up Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Review Outcome Record Audit Outcome Record Closeout Record Refresh Rules entry points disappear.
+- `pnpm release:gates:check` fails if template or triage docs checks stop using the shared seed fixture implementation queued PR follow-up review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh review outcome record audit outcome record closeout record refresh rules contract.
+- Existing build, tests, docs checks, metadata check, release safety, bin smoke, pack dry-run, and verify release stay green.

@@ -3514,6 +3514,89 @@ export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecor
   }
 ];
 
+export const accuracySeedFixtureImplementationQueuedPrFollowUpReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewOutcomeRecordAuditOutcomeRecordCloseoutRecordRefreshReviewCadence = [
+  {
+    review: "Refreshed audit outcome closeout source refresh review",
+    refreshRule: "Refreshed audit outcome closeout source changed",
+    cadence:
+      "Review whenever the completed audit outcome template, routed outcome, source refreshed audit outcome closeout refresh review outcome record link, current queued PR or issue link, owner, completed fields, mixed-state check result, or paused-or-proceed decision changes and again before closure, continuation, review resume, parking, deferral, supersede, or escalation relies on the record.",
+    requiredInputs:
+      "Refreshed audit outcome closeout source changed refresh rule, completed refreshed audit outcome closeout refresh review outcome audit closeout record, selected audit outcome record template, routed outcome, source and current links, owner, completed fields, mixed-state check result, and paused-or-proceed decision.",
+    staleWhen:
+      "Source evidence is missing, owner changed without a refreshed closeout record, routed outcome no longer matches the completed audit outcome template, current queued PR or issue link changed, or mixed-state evidence is older than the current closeout state.",
+    routeTo:
+      "Refresh the completed audit outcome closeout record, rerun audit outcome routing and closeout checklist, keep closure or continuation paused, or escalate a blocker when source evidence cannot be reconciled.",
+    maintainerAction:
+      "Compare source evidence with the current route, update source and current links, verify owner and mixed-state check result, rerun required closeout checks, and record whether closure or continuation stays paused.",
+    record:
+      "Record review date, refresh rule, source link, current link, routed outcome, owner, stale fields, mixed-state check result, rerun result, paused-or-proceed status, and next review date."
+  },
+  {
+    review: "Allowed refreshed audit outcome closure or continuation route refresh review",
+    refreshRule: "Allowed refreshed audit outcome closure or continuation route changed",
+    cadence:
+      "Review before closure, continuation, refresh, review resume, parking, deferral, supersede, or escalation resolution whenever allowed closure or continuation route, retained scope, deferred scope, verification summary, owner, default-path boundary, or proceed condition changes.",
+    requiredInputs:
+      "Allowed refreshed audit outcome closure or continuation route changed refresh rule, allowed refreshed audit outcome closure or continuation record, allowed route, owner, verification summary or non-applicability, retained scope, deferred scope, default-path boundary decision, proceed condition, and implementation pause note.",
+    staleWhen:
+      "Allowed route, owner, retained scope, deferred scope, verification summary, default-path boundary, proceed condition, or implementation pause note differs from the current audit outcome closeout state or linked follow-up.",
+    routeTo:
+      "Refresh the allowed closure or continuation record, rerun focused verification, rerun closeout, keep closure or continuation paused, or return unrelated implementation work to its follow-up path.",
+    maintainerAction:
+      "Recheck the allowed route and scope boundary, rerun focused commands when evidence changed, update owner and proceed condition, and confirm no implementation starts from closeout.",
+    record:
+      "Record review date, allowed route, owner, retained scope, deferred scope, verification result, default-path boundary decision, proceed condition, stale fields, and next route."
+  },
+  {
+    review: "Refreshed audit outcome blocker or deferral evidence refresh review",
+    refreshRule: "Refreshed audit outcome blocker or deferral evidence changed",
+    cadence:
+      "Review at every release-blocking check, before closure, continuation, review resume, parking, deferral, supersede, or escalation resolution, and whenever blocker, deferral, closure, supersede, owner, final condition, or default-path boundary evidence changes.",
+    requiredInputs:
+      "Refreshed audit outcome blocker or deferral evidence changed refresh rule, enforceable refreshed audit outcome blocker or deferral record, missing evidence or closure rationale, blocker or superseding link, paused state, target or roadmap status, owner, release verification requirement, boundary decision, resolution or final condition, and next review date.",
+    staleWhen:
+      "Blocker, deferral, closure, or supersede evidence is missing, owner is stale, target or roadmap status changed, next review date passed, resolution or final condition changed, or release/default-path verification no longer matches the closeout record.",
+    routeTo:
+      "Refresh the blocker or deferral record, rerun read-only smoke, run `pnpm verify:release` when required, keep closure or continuation paused, or reroute to blocker escalation, deferral, supersede, or final closure.",
+    maintainerAction:
+      "Refresh blocker, deferral, closure, or supersede evidence, verify owner and target status, rerun required commands, update resolution or final condition, and decide whether the state remains blocking or can return to closeout.",
+    record:
+      "Record review date, enforceable state, owner, missing evidence or closure rationale, blocker or superseding link, command results, release verification decision, boundary decision, resolution or final condition, and next review date."
+  },
+  {
+    review: "Refreshed audit outcome ownership or stop-condition refresh review",
+    refreshRule: "Refreshed audit outcome follow-up ownership or stop condition changed",
+    cadence:
+      "Review whenever owner, next action, retained scope, deferred scope, stop condition, revisit date, paused/proceed state, queue or roadmap target, closure link, supersede link, remaining owner handoff, or final status changes and again before closure, continuation, deferral, supersede, or parked work proceeds.",
+    requiredInputs:
+      "Refreshed audit outcome follow-up ownership or stop condition changed refresh rule, owned refreshed audit outcome follow-up stop-condition record, owner, next action, retained scope, deferred scope, stop condition or revisit date, queue or roadmap target, closure or supersede link, paused/proceed state, remaining owner handoff, and final status when applicable.",
+    staleWhen:
+      "Owner, next action, retained or deferred scope, stop condition, revisit date, queue or roadmap target, closure or supersede link, paused/proceed state, remaining owner handoff, or final status differs from the current closeout state.",
+    routeTo:
+      "Refresh the owned follow-up stop-condition record, update queue or roadmap target, keep work paused, rerun docs-only triage checks, or return changed retained or deferred scope to its follow-up path.",
+    maintainerAction:
+      "Confirm owner, next action, retained and deferred scope, stop condition, target, closure or supersede link, and final status, then refresh the record before closure or continuation proceeds.",
+    record:
+      "Record review date, owner, next action, retained scope, deferred scope, stop condition or revisit date, queue or roadmap target, closure or supersede link, paused/proceed state, final status, and next review date."
+  },
+  {
+    review: "Current default-path refreshed audit outcome closeout evidence refresh review",
+    refreshRule: "Current default-path refreshed audit outcome closeout evidence changed",
+    cadence:
+      "Review before closure, continuation, parking, blocking, deferral, supersede, escalation, refresh, or review resume whenever read-only smoke, release verification decision, no-write note, no-network note, no-project-script note, scanner boundary, verification summary, owner, boundary result, or paused-or-proceed route changes.",
+    requiredInputs:
+      "Current default-path refreshed audit outcome closeout evidence changed refresh rule, current default-path refreshed audit outcome closeout evidence record, read-only smoke result or non-applicability, release verification decision, no-write/no-network/no-script notes, scanner-boundary note, verification summary, owner, boundary result, and paused-or-proceed route.",
+    staleWhen:
+      "Read-only smoke, release verification decision, no-write/no-network/no-script notes, scanner boundary, verification summary, owner, boundary result, or paused-or-proceed route is missing, older than current behavior, or conflicts with the closeout decision.",
+    routeTo:
+      "Refresh default-path boundary evidence, rerun read-only smoke, run `pnpm verify:release` when release or package behavior changed, keep closure or continuation paused, or escalate a blocker before stale evidence supports a route.",
+    maintainerAction:
+      "Rerun or justify non-applicability for boundary verification, update no-write/no-network/no-script notes, confirm scanner boundary and owner, and record whether the route can proceed without changing default `bootlane check` behavior.",
+    record:
+      "Record review date, read-only smoke or non-applicability, release verification decision, no-write/no-network/no-script notes, scanner boundary, verification summary, owner, boundary result, paused-or-proceed route, stale fields, and next review date."
+  }
+];
+
 export const accuracyIntakeClosureCriteria = [
 
   {

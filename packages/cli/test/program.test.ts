@@ -86,6 +86,24 @@ describe("CLI program", () => {
     ).rejects.toThrow("exit 1");
   });
 
+  it("normalizes format and fail-on option values", async () => {
+    const writes: string[] = [];
+
+    await expect(
+      runCheckCommand(
+        path.join(fixtureRoot, "node-warning-only"),
+        { format: " JSON " as never, ci: true, failOn: " WARNING " as never },
+        createTestIO(writes)
+      )
+    ).rejects.toThrow("exit 1");
+
+    const report = JSON.parse(writes.join("")) as {
+      findings: Array<{ id: string }>;
+    };
+
+    expect(report.findings.map((finding) => finding.id)).toContain("runtime.node-version.missing");
+  });
+
   it("loads bootlane.config.json for CLI runs", async () => {
     const writes: string[] = [];
     const io = createTestIO(writes);

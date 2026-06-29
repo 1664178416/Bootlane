@@ -12,6 +12,7 @@ This project follows a lightweight pre-1.0 changelog format until the first publ
 - Python repository detection with read-only setup checks for runtime metadata, dependency files, README install/test guidance, env examples, tests, and GitHub Actions.
 - Package-manager-aware diagnostics for npm, pnpm, Yarn, Bun, pip, uv, Poetry, and Pipenv projects.
 - Terminal, JSON, and Markdown reports, including compact `--summary`, diagnostic `--verbose`, and `--output` report artifact support.
+- Case-insensitive `--format` and `--fail-on` option parsing, with surrounding whitespace trimmed before validation.
 - `bootlane.config.json` support for ignore patterns, CI failure thresholds, disabled checks, and severity overrides.
 - Dry-run fix proposals for `.env.example`, README setup sections, and deterministic GitHub Actions workflow previews.
 - Verbose terminal fix preview content with a 40-line cap, plus compact Markdown fix preview summaries for issues and PR comments.

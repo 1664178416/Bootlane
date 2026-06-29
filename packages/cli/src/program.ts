@@ -208,16 +208,18 @@ export function shouldFail(report: BootlaneReport, threshold: Severity): boolean
 }
 
 function parseFormat(value: string): CheckFormat {
-  if (value === "terminal" || value === "json" || value === "markdown") {
-    return value;
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "terminal" || normalized === "json" || normalized === "markdown") {
+    return normalized;
   }
 
   throw usageError(`Unsupported format "${value}". Use terminal, json, or markdown.`);
 }
 
 function parseSeverity(value: string): Severity {
-  if (value === "critical" || value === "warning" || value === "info") {
-    return value;
+  const normalized = value.trim().toLowerCase();
+  if (normalized === "critical" || normalized === "warning" || normalized === "info") {
+    return normalized;
   }
 
   throw usageError(`Unsupported severity "${value}". Use critical, warning, or info.`);

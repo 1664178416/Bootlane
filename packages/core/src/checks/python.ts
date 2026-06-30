@@ -13,7 +13,8 @@ import { finding, hasPythonTestCommand } from "./helpers.js";
 
 const readmeCandidates = ["README.md", "readme.md", "README.MD", "README"];
 const commandBoundary = String.raw`(?=\s|$|[;&|])`;
-const pipInstallTargetPattern = String.raw`(?:-r\s+requirements\.txt|(?:--editable|-e)\s+(?:\.|\./[^\s"'<>]+)|\.|\./[^\s"'<>]+)`;
+const pipProjectTargetPattern = String.raw`(?:(?:["']?\.(?:\[[^\]\s"'<>]+\])?["']?)|\./[^\s"'<>]+)`;
+const pipInstallTargetPattern = String.raw`(?:-r\s+requirements\.txt|(?:--editable|-e)\s+${pipProjectTargetPattern}|${pipProjectTargetPattern})`;
 const installPattern = new RegExp(
   String.raw`\b(?:pip\s+install\s+${pipInstallTargetPattern}|(?:python|python3|py)\s+-m\s+pip\s+install(?:\s+${pipInstallTargetPattern})?|uv\s+(?:sync|pip\s+install(?:\s+${pipInstallTargetPattern})?)|poetry\s+install|pipenv\s+(?:install|sync))${commandBoundary}`,
   "i"

@@ -3,7 +3,7 @@
 Install dependencies:
 
 ```bash
-python -m pip install -e .
+python -m pip install -e ".[dev]"
 ```
 
 Run tests:

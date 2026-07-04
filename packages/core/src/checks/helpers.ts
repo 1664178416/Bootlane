@@ -7,8 +7,9 @@ const nodeRunCommandPattern =
 const nodeTestCommandPattern =
   /\b(?:npm\s+(?:run\s+)?test|pnpm\s+(?:run\s+)?test|yarn\s+(?:run\s+)?test|bun\s+(?:run\s+)?test|vitest|jest)\b/i;
 const pythonTestRunnerPattern = String.raw`(?:pytest|(?:python|python3|py)\s+-m\s+(?:pytest|unittest)|tox|nox)`;
+const commandOptionPattern = String.raw`(?:--[\w-]+(?:=(?:"[^"]+"|'[^']+'|[^\s]+)|\s+(?:"[^"]+"|'[^']+'|[^\s]+))?\s+)*`;
 const pythonTestCommandPattern = new RegExp(
-  String.raw`\b(?:${pythonTestRunnerPattern}|uv\s+run\s+${pythonTestRunnerPattern}|poetry\s+run\s+${pythonTestRunnerPattern}|pipenv\s+run\s+${pythonTestRunnerPattern})\b`,
+  String.raw`\b(?:${pythonTestRunnerPattern}|uv\s+run\s+${commandOptionPattern}${pythonTestRunnerPattern}|poetry\s+run\s+${pythonTestRunnerPattern}|pipenv\s+run\s+${pythonTestRunnerPattern})\b`,
   "i"
 );
 

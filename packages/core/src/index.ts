@@ -2,7 +2,7 @@ import path from "node:path";
 import { runChecks } from "./checks/index.js";
 import { loadConfigFile, mergeConfig, resolveConfig } from "./config.js";
 import { detectProject } from "./detectors/project.js";
-import { listFiles } from "./files.js";
+import { createFileSet, listFiles } from "./files.js";
 import { generateFixProposals } from "./fixers/index.js";
 import { renderJsonReport } from "./reporters/json.js";
 import { renderMarkdownReport } from "./reporters/markdown.js";
@@ -34,13 +34,15 @@ export async function analyzeProject(options: AnalyzeOptions): Promise<BootlaneR
   const targetPath = path.resolve(options.targetPath);
   const config = resolveConfig(options.config);
   const files = await listFiles(targetPath, config.ignore);
-  const project = await detectProject(targetPath, files);
+  const fileSet = createFileSet(files);
+  const project = await detectProject(targetPath, files, fileSet);
 
   const context: ProjectContext = {
     targetPath,
     config,
     project,
-    files
+    files,
+    fileSet
   };
 
   const findings = await runChecks(context);

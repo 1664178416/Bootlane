@@ -1,3 +1,4 @@
+import { hasFile } from "../files.js";
 import type { PackageManager } from "../types.js";
 
 export const pythonProjectSignals = [
@@ -33,19 +34,22 @@ export const pythonLockCommands: Record<PythonLockingPackageManager, string> = {
   pipenv: "pipenv lock"
 };
 
-export function hasPythonProjectSignal(files: string[]): boolean {
-  return pythonProjectSignals.some((signal) => files.includes(signal));
+export function hasPythonProjectSignal(files: string[], fileSet?: ReadonlySet<string>): boolean {
+  const lookup = fileSet ?? files;
+  return pythonProjectSignals.some((signal) => hasFile(lookup, signal));
 }
 
-export function getPythonDependencyFiles(files: string[]): string[] {
-  return pythonProjectSignals.filter((signal) => files.includes(signal));
+export function getPythonDependencyFiles(files: string[], fileSet?: ReadonlySet<string>): string[] {
+  const lookup = fileSet ?? files;
+  return pythonProjectSignals.filter((signal) => hasFile(lookup, signal));
 }
 
 export function detectPythonPackageManagerFromSignals(
   files: string[],
-  pyproject?: string
+  pyproject?: string,
+  fileSet?: ReadonlySet<string>
 ): PackageManager {
-  const signals = getPythonManagerSignals(files, pyproject);
+  const signals = getPythonManagerSignals(files, pyproject, fileSet);
 
   for (const manager of ["uv", "poetry", "pipenv", "pip"] satisfies PythonSignalPackageManager[]) {
     if (signals.some((signal) => signal.manager === manager)) {
@@ -56,28 +60,33 @@ export function detectPythonPackageManagerFromSignals(
   return "unknown";
 }
 
-export function getPythonManagerSignals(files: string[], pyproject?: string): PythonManagerSignal[] {
+export function getPythonManagerSignals(
+  files: string[],
+  pyproject?: string,
+  fileSet?: ReadonlySet<string>
+): PythonManagerSignal[] {
   const pyprojectContent = pyproject ?? "";
+  const lookup = fileSet ?? files;
   const signals: PythonManagerSignal[] = [];
   const uvFiles = [
-    ...(files.includes("uv.lock") ? ["uv.lock"] : []),
+    ...(hasFile(lookup, "uv.lock") ? ["uv.lock"] : []),
     ...(hasTomlSection(pyprojectContent, "tool.uv") ? ["pyproject.toml"] : [])
   ];
   const poetryFiles = [
-    ...(files.includes("poetry.lock") ? ["poetry.lock"] : []),
+    ...(hasFile(lookup, "poetry.lock") ? ["poetry.lock"] : []),
     ...(hasTomlSection(pyprojectContent, "tool.poetry") || /\bpoetry-core\b/i.test(pyprojectContent)
       ? ["pyproject.toml"]
       : [])
   ];
   const pipenvFiles = [
-    ...(files.includes("Pipfile") ? ["Pipfile"] : []),
-    ...(files.includes("Pipfile.lock") ? ["Pipfile.lock"] : [])
+    ...(hasFile(lookup, "Pipfile") ? ["Pipfile"] : []),
+    ...(hasFile(lookup, "Pipfile.lock") ? ["Pipfile.lock"] : [])
   ];
   const pipFiles = [
-    ...(files.includes("requirements.txt") ? ["requirements.txt"] : []),
-    ...(files.includes("setup.py") ? ["setup.py"] : []),
-    ...(files.includes("setup.cfg") ? ["setup.cfg"] : []),
-    ...(files.includes("pyproject.toml") ? ["pyproject.toml"] : [])
+    ...(hasFile(lookup, "requirements.txt") ? ["requirements.txt"] : []),
+    ...(hasFile(lookup, "setup.py") ? ["setup.py"] : []),
+    ...(hasFile(lookup, "setup.cfg") ? ["setup.cfg"] : []),
+    ...(hasFile(lookup, "pyproject.toml") ? ["pyproject.toml"] : [])
   ];
 
   if (uvFiles.length > 0) {
@@ -103,20 +112,26 @@ export function isPythonLockingManager(packageManager: PackageManager): packageM
   return pythonLockingManagers.includes(packageManager as PythonLockingPackageManager);
 }
 
-export function getPythonInstallCommand(packageManager: PackageManager, files: string[]): string | undefined {
+export function getPythonInstallCommand(
+  packageManager: PackageManager,
+  files: string[],
+  fileSet?: ReadonlySet<string>
+): string | undefined {
+  const lookup = fileSet ?? files;
+
   switch (packageManager) {
     case "uv":
       return "uv sync";
     case "poetry":
       return "poetry install";
     case "pipenv":
-      return files.includes("Pipfile.lock") ? "pipenv sync" : "pipenv install";
+      return hasFile(lookup, "Pipfile.lock") ? "pipenv sync" : "pipenv install";
     case "pip":
-      if (files.includes("requirements.txt")) {
+      if (hasFile(lookup, "requirements.txt")) {
         return "python -m pip install -r requirements.txt";
       }
 
-      if (files.includes("pyproject.toml") || files.includes("setup.py") || files.includes("setup.cfg")) {
+      if (hasFile(lookup, "pyproject.toml") || hasFile(lookup, "setup.py") || hasFile(lookup, "setup.cfg")) {
         return "python -m pip install .";
       }
 

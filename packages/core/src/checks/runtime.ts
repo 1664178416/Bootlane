@@ -1,4 +1,4 @@
-import { fileExists } from "../files.js";
+import { hasAnyFile } from "../files.js";
 import type { Check } from "../types.js";
 import { finding } from "./helpers.js";
 
@@ -10,10 +10,7 @@ export const runtimeCheck: Check = {
     const packageJson = context.project.packageJson;
     const hasEnginesNode = Boolean(packageJson?.engines?.node);
     const hasVoltaNode = Boolean(packageJson?.volta?.node);
-    const hasNodeVersionFile =
-      (await fileExists(context.targetPath, ".nvmrc")) ||
-      (await fileExists(context.targetPath, ".node-version")) ||
-      (await fileExists(context.targetPath, ".tool-versions"));
+    const hasNodeVersionFile = hasAnyFile(context, [".nvmrc", ".node-version", ".tool-versions"]);
 
     if (hasEnginesNode || hasVoltaNode || hasNodeVersionFile) {
       return [];

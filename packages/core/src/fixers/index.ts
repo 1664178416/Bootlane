@@ -1,4 +1,4 @@
-import { readTextFile } from "../files.js";
+import { findFile, hasFile, readTextFile } from "../files.js";
 import { readEnvExampleNames, scanEnvUsages } from "../scanners/env.js";
 import { getPythonInstallCommand, getPythonTestCommand, isPythonTestFile } from "../signals/python.js";
 import type { Finding, FixProposal, PackageManager, ProjectContext } from "../types.js";
@@ -88,7 +88,7 @@ async function generateReadmeSetupProposal(
     return undefined;
   }
 
-  const readmePath = readmeCandidates.find((candidate) => context.files.includes(candidate)) ?? "README.md";
+  const readmePath = findFile(context, readmeCandidates) ?? "README.md";
   const readmeContent = await readTextFile(context.targetPath, readmePath);
   const packageName = context.project.packageJson?.name ?? "Project";
   const snippet = renderReadmeSetupSnippet(context);
@@ -126,7 +126,7 @@ async function generatePythonReadmeSetupProposal(
     return undefined;
   }
 
-  const readmePath = readmeCandidates.find((candidate) => context.files.includes(candidate)) ?? "README.md";
+  const readmePath = findFile(context, readmeCandidates) ?? "README.md";
   const readmeContent = await readTextFile(context.targetPath, readmePath);
   const packageName = context.project.python?.name ?? "Project";
   const content = readmeContent ? `\n${rendered.snippet}` : `# ${packageName}\n\n${rendered.snippet}`;
@@ -154,7 +154,7 @@ async function generatePythonCiWorkflowProposal(
     return undefined;
   }
 
-  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files);
+  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files, context.fileSet);
   const testCommand = getPythonTestCommand(context.project.packageManager, context.project.python?.testTools ?? []);
 
   if (!installCommand || !testCommand || !context.files.some(isPythonTestFile)) {
@@ -190,6 +190,7 @@ async function generateNodeCiWorkflowProposal(
   const installCommand = nodeCiInstallCommand(
     context.project.packageManager,
     context.files,
+    context.fileSet,
     context.project.packageJson?.packageManager
   );
   const nodeVersion = await nodeVersionForWorkflow(context);
@@ -227,7 +228,7 @@ function renderReadmeSetupSnippet(context: ProjectContext): string {
     lines.push("", "Run tests:", "", "```bash", packageManagerRunCommand(packageManager, "test"), "```");
   }
 
-  if (context.files.includes(".env.example")) {
+  if (hasFile(context, ".env.example")) {
     lines.push("", "Environment:", "", "Copy `.env.example` to `.env` and fill in the required values.");
   }
 
@@ -240,7 +241,7 @@ function renderPythonReadmeSetupSnippet(
 ): { snippet: string; findingIds: string[] } | undefined {
   const lines = ["## Setup"];
   const includedFindingIds = new Set<string>();
-  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files);
+  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files, context.fileSet);
   const testCommand = getPythonTestCommand(context.project.packageManager, context.project.python?.testTools ?? []);
 
   if ((findingIds.has("readme.missing") || findingIds.has("readme.python-install.missing")) && installCommand) {
@@ -377,7 +378,7 @@ async function pythonVersionForWorkflow(context: ProjectContext): Promise<string
     return runtimeVersion;
   }
 
-  const toolVersions = context.files.includes(".tool-versions")
+  const toolVersions = hasFile(context, ".tool-versions")
     ? await readTextFile(context.targetPath, ".tool-versions")
     : undefined;
   const toolVersion = extractToolVersionsPythonVersion(toolVersions);
@@ -386,7 +387,7 @@ async function pythonVersionForWorkflow(context: ProjectContext): Promise<string
 }
 
 async function readVersionFile(context: ProjectContext, relativePath: string): Promise<string | undefined> {
-  if (!context.files.includes(relativePath)) {
+  if (!hasFile(context, relativePath)) {
     return undefined;
   }
 
@@ -419,7 +420,7 @@ async function nodeVersionForWorkflow(context: ProjectContext): Promise<string |
     return nodeVersion;
   }
 
-  const toolVersions = context.files.includes(".tool-versions")
+  const toolVersions = hasFile(context, ".tool-versions")
     ? await readTextFile(context.targetPath, ".tool-versions")
     : undefined;
 
@@ -427,7 +428,7 @@ async function nodeVersionForWorkflow(context: ProjectContext): Promise<string |
 }
 
 async function readRuntimeVersionFile(context: ProjectContext, relativePath: string): Promise<string | undefined> {
-  if (!context.files.includes(relativePath)) {
+  if (!hasFile(context, relativePath)) {
     return undefined;
   }
 
@@ -446,21 +447,24 @@ function extractToolVersionsNodeVersion(content: string | undefined): string | u
 function nodeCiInstallCommand(
   packageManager: PackageManager,
   files: string[],
+  fileSet?: ReadonlySet<string>,
   declaredPackageManager?: string
 ): string | undefined {
+  const lookup = fileSet ?? files;
+
   switch (packageManager) {
     case "npm":
-      return files.includes("package-lock.json") || files.includes("npm-shrinkwrap.json") ? "npm ci" : undefined;
+      return hasFile(lookup, "package-lock.json") || hasFile(lookup, "npm-shrinkwrap.json") ? "npm ci" : undefined;
     case "pnpm":
-      return files.includes("pnpm-lock.yaml") ? "pnpm install --frozen-lockfile" : undefined;
+      return hasFile(lookup, "pnpm-lock.yaml") ? "pnpm install --frozen-lockfile" : undefined;
     case "yarn":
-      if (!files.includes("yarn.lock")) {
+      if (!hasFile(lookup, "yarn.lock")) {
         return undefined;
       }
 
       return isYarnClassic(declaredPackageManager) ? "yarn install --frozen-lockfile" : "yarn install --immutable";
     case "bun":
-      return files.includes("bun.lock") || files.includes("bun.lockb") ? "bun install --frozen-lockfile" : undefined;
+      return hasFile(lookup, "bun.lock") || hasFile(lookup, "bun.lockb") ? "bun install --frozen-lockfile" : undefined;
     case "pip":
     case "uv":
     case "poetry":

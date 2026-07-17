@@ -6,8 +6,12 @@ import {
 } from "../signals/python.js";
 import type { ProjectSummary, PythonProjectSummary } from "../types.js";
 
-export async function detectPythonProject(targetPath: string, files: string[]): Promise<ProjectSummary | undefined> {
-  if (!hasPythonProjectSignal(files)) {
+export async function detectPythonProject(
+  targetPath: string,
+  files: string[],
+  fileSet?: ReadonlySet<string>
+): Promise<ProjectSummary | undefined> {
+  if (!hasPythonProjectSignal(files, fileSet)) {
     return undefined;
   }
 
@@ -20,14 +24,14 @@ export async function detectPythonProject(targetPath: string, files: string[]): 
     name: extractTomlString(pyproject, "name"),
     version: extractTomlString(pyproject, "version"),
     requiresPython: extractRequiresPython(pyproject, pipfile),
-    dependencyFiles: getPythonDependencyFiles(files),
+    dependencyFiles: getPythonDependencyFiles(files, fileSet),
     testTools: detectTestTools(metadataText)
   };
 
   return {
     type: "python",
     frameworks: detectFrameworks(metadataText),
-    packageManager: detectPythonPackageManagerFromSignals(files, pyproject),
+    packageManager: detectPythonPackageManagerFromSignals(files, pyproject, fileSet),
     python: summary
   };
 }

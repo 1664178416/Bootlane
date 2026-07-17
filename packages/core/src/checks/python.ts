@@ -1,4 +1,4 @@
-import { readTextFile } from "../files.js";
+import { findFile, hasFile, readTextFile } from "../files.js";
 import {
   getPythonInstallCommand,
   getPythonManagerSignals,
@@ -26,9 +26,9 @@ export const pythonRuntimeCheck: Check = {
   async run(context) {
     const hasVersion =
       Boolean(context.project.python?.requiresPython) ||
-      context.files.includes(".python-version") ||
-      context.files.includes("runtime.txt") ||
-      context.files.includes(".tool-versions");
+      hasFile(context, ".python-version") ||
+      hasFile(context, "runtime.txt") ||
+      hasFile(context, ".tool-versions");
 
     if (hasVersion) {
       return [];
@@ -42,7 +42,7 @@ export const pythonRuntimeCheck: Check = {
         severity: "warning",
         message: "The repo does not declare which Python version users should run.",
         suggestion: "Add requires-python to pyproject.toml or commit .python-version.",
-        files: context.files.includes("pyproject.toml") ? ["pyproject.toml"] : undefined,
+        files: hasFile(context, "pyproject.toml") ? ["pyproject.toml"] : undefined,
         confidence: "high"
       })
     ];
@@ -54,7 +54,7 @@ export const pythonReadmeCheck: Check = {
   category: "readme",
   appliesTo: (context) => context.project.type === "python",
   async run(context) {
-    const readmePath = readmeCandidates.find((candidate) => context.files.includes(candidate));
+    const readmePath = findFile(context, readmeCandidates);
     if (!readmePath) {
       return [
         finding({
@@ -80,7 +80,7 @@ export const pythonReadmeCheck: Check = {
           title: "README does not show how to install Python dependencies",
           severity: "warning",
           message: "The README does not include a recognizable Python install command.",
-          suggestion: `Add an install step such as \`${suggestedPythonInstallCommand(context.project.packageManager, context.files)}\`.`,
+          suggestion: `Add an install step such as \`${suggestedPythonInstallCommand(context.project.packageManager, context.files, context.fileSet)}\`.`,
           files: [readmePath],
           confidence: "medium"
         })
@@ -113,7 +113,7 @@ export const pythonDependenciesCheck: Check = {
   appliesTo: (context) => context.project.type === "python",
   async run(context) {
     const pyproject = await readTextFile(context.targetPath, "pyproject.toml");
-    const managerSignals = getPythonManagerSignals(context.files, pyproject);
+    const managerSignals = getPythonManagerSignals(context.files, pyproject, context.fileSet);
     const lockfileManagers = managerSignals.filter((signal) => isPythonLockingManager(signal.manager));
     const uniqueLockfileManagers = [...new Set(lockfileManagers.map((signal) => signal.manager))];
 
@@ -137,7 +137,7 @@ export const pythonDependenciesCheck: Check = {
     }
 
     const expectedLockfile = pythonLockfiles[context.project.packageManager];
-    if (context.files.includes(expectedLockfile)) {
+    if (hasFile(context, expectedLockfile)) {
       return [];
     }
 
@@ -206,8 +206,12 @@ function getPythonTestSignals(files: string[], testTools: string[]): {
   };
 }
 
-function suggestedPythonInstallCommand(packageManager: PackageManager, files: string[]): string {
-  return getPythonInstallCommand(packageManager, files) ?? "python -m pip install -r requirements.txt";
+function suggestedPythonInstallCommand(
+  packageManager: PackageManager,
+  files: string[],
+  fileSet?: ReadonlySet<string>
+): string {
+  return getPythonInstallCommand(packageManager, files, fileSet) ?? "python -m pip install -r requirements.txt";
 }
 
 function suggestedPythonTestCommand(packageManager: PackageManager, testTools: string[]): string {

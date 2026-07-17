@@ -2,6 +2,11 @@ import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import fastGlob from "fast-glob";
 
+export type FileLookup = {
+  files: readonly string[];
+  fileSet?: ReadonlySet<string>;
+};
+
 export async function listFiles(targetPath: string, ignore: string[]): Promise<string[]> {
   const entries = await fastGlob("**/*", {
     cwd: targetPath,
@@ -12,6 +17,10 @@ export async function listFiles(targetPath: string, ignore: string[]): Promise<s
   });
 
   return entries.sort((a, b) => a.localeCompare(b));
+}
+
+export function createFileSet(files: readonly string[]): ReadonlySet<string> {
+  return new Set(files.map(normalizePath));
 }
 
 export async function fileExists(targetPath: string, relativePath: string): Promise<boolean> {
@@ -44,12 +53,42 @@ export async function readJsonFile<T>(targetPath: string, relativePath: string):
   }
 }
 
-export function hasAnyFile(files: string[], candidates: string[]): boolean {
-  const fileSet = new Set(files.map(normalizePath));
-  return candidates.some((candidate) => fileSet.has(normalizePath(candidate)));
+export function hasFile(lookup: FileLookup | ReadonlySet<string> | readonly string[], relativePath: string): boolean {
+  const normalized = normalizePath(relativePath);
+
+  if (isFileSet(lookup)) {
+    return lookup.has(normalized);
+  }
+
+  if (isFileArray(lookup)) {
+    return lookup.some((file) => normalizePath(file) === normalized);
+  }
+
+  return lookup.fileSet?.has(normalized) ?? lookup.files.some((file) => normalizePath(file) === normalized);
+}
+
+export function hasAnyFile(
+  lookup: FileLookup | ReadonlySet<string> | readonly string[],
+  candidates: readonly string[]
+): boolean {
+  return candidates.some((candidate) => hasFile(lookup, candidate));
+}
+
+export function findFile(
+  lookup: FileLookup | ReadonlySet<string> | readonly string[],
+  candidates: readonly string[]
+): string | undefined {
+  return candidates.find((candidate) => hasFile(lookup, candidate));
 }
 
 export function normalizePath(filePath: string): string {
   return filePath.replace(/\\/g, "/");
 }
 
+function isFileSet(lookup: FileLookup | ReadonlySet<string> | readonly string[]): lookup is ReadonlySet<string> {
+  return typeof (lookup as ReadonlySet<string>).has === "function";
+}
+
+function isFileArray(lookup: FileLookup | readonly string[]): lookup is readonly string[] {
+  return Array.isArray(lookup);
+}

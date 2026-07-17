@@ -1,4 +1,4 @@
-import { readJsonFile } from "../files.js";
+import { hasFile, readJsonFile } from "../files.js";
 import type { PackageJsonSummary, PackageManager, ProjectSummary } from "../types.js";
 
 type RawPackageJson = {
@@ -16,7 +16,11 @@ type RawPackageJson = {
   };
 };
 
-export async function detectNodeProject(targetPath: string, files: string[]): Promise<ProjectSummary | undefined> {
+export async function detectNodeProject(
+  targetPath: string,
+  files: string[],
+  fileSet?: ReadonlySet<string>
+): Promise<ProjectSummary | undefined> {
   const packageJson = await readJsonFile<RawPackageJson>(targetPath, "package.json");
 
   if (!packageJson) {
@@ -37,12 +41,16 @@ export async function detectNodeProject(targetPath: string, files: string[]): Pr
   return {
     type: "node",
     frameworks: detectFrameworks(summary),
-    packageManager: detectPackageManager(files, summary.packageManager),
+    packageManager: detectPackageManager(files, summary.packageManager, fileSet),
     packageJson: summary
   };
 }
 
-export function detectPackageManager(files: string[], declaredPackageManager?: string): PackageManager {
+export function detectPackageManager(
+  files: string[],
+  declaredPackageManager?: string,
+  fileSet?: ReadonlySet<string>
+): PackageManager {
   if (declaredPackageManager) {
     const name = declaredPackageManager.split("@")[0];
     if (name === "npm" || name === "pnpm" || name === "yarn" || name === "bun") {
@@ -50,19 +58,21 @@ export function detectPackageManager(files: string[], declaredPackageManager?: s
     }
   }
 
-  if (files.includes("pnpm-lock.yaml")) {
+  const lookup = fileSet ?? files;
+
+  if (hasFile(lookup, "pnpm-lock.yaml")) {
     return "pnpm";
   }
 
-  if (files.includes("package-lock.json") || files.includes("npm-shrinkwrap.json")) {
+  if (hasFile(lookup, "package-lock.json") || hasFile(lookup, "npm-shrinkwrap.json")) {
     return "npm";
   }
 
-  if (files.includes("yarn.lock")) {
+  if (hasFile(lookup, "yarn.lock")) {
     return "yarn";
   }
 
-  if (files.includes("bun.lockb") || files.includes("bun.lock")) {
+  if (hasFile(lookup, "bun.lockb") || hasFile(lookup, "bun.lock")) {
     return "bun";
   }
 

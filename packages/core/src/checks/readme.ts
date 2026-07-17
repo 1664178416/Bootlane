@@ -1,4 +1,4 @@
-import { readTextFile } from "../files.js";
+import { findFile, hasFile, readTextFile } from "../files.js";
 import type { Check } from "../types.js";
 import { finding, hasNodeInstallCommand, hasNodeRunCommand, hasNodeTestCommand, packageManagerRunCommand } from "./helpers.js";
 
@@ -12,7 +12,7 @@ export const readmeCheck: Check = {
   category: "readme",
   appliesTo: (context) => context.project.type === "node",
   async run(context) {
-    const readmePath = readmeCandidates.find((candidate) => context.files.includes(candidate));
+    const readmePath = findFile(context, readmeCandidates);
     if (!readmePath) {
       return [
         finding({
@@ -81,7 +81,7 @@ export const readmeCheck: Check = {
       );
     }
 
-    const hasEnvExample = context.files.includes(".env.example");
+    const hasEnvExample = hasFile(context, ".env.example");
     if (hasEnvExample && (!content || !envPattern.test(content))) {
       findings.push(
         finding({

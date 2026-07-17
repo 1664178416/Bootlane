@@ -120,6 +120,7 @@ export type ProjectContext = {
   config: BootlaneConfig;
   project: ProjectSummary;
   files: string[];
+  fileSet?: ReadonlySet<string>;
 };
 
 export type Check = {

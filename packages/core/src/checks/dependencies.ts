@@ -1,3 +1,4 @@
+import { hasFile } from "../files.js";
 import type { Check, PackageManager } from "../types.js";
 import { finding } from "./helpers.js";
 
@@ -19,7 +20,8 @@ export const dependenciesCheck: Check = {
   async run(context) {
     const findings = [];
     const { project, files } = context;
-    const lockfileSummary = getLockfileSummary(files);
+    const lookup = context.fileSet ?? files;
+    const lockfileSummary = getLockfileSummary(files, context.fileSet);
     const declared = project.packageJson?.packageManager?.split("@")[0] as PackageManager | undefined;
 
     if (declared && nodePackageManagers.has(declared)) {
@@ -27,7 +29,7 @@ export const dependenciesCheck: Check = {
       const foundLockfiles = lockfileSummary
         .filter((entry) => entry.manager !== declared)
         .flatMap((entry) => entry.files);
-      const hasExpectedLockfile = expectedLockfiles.some((lockfile) => files.includes(lockfile));
+      const hasExpectedLockfile = expectedLockfiles.some((lockfile) => hasFile(lookup, lockfile));
       const hasOtherLockfile = foundLockfiles.length > 0;
 
       if (!hasExpectedLockfile && hasOtherLockfile) {
@@ -76,11 +78,16 @@ export const dependenciesCheck: Check = {
   }
 };
 
-function getLockfileSummary(files: string[]): Array<{ manager: NodePackageManager; files: string[] }> {
+function getLockfileSummary(
+  files: string[],
+  fileSet?: ReadonlySet<string>
+): Array<{ manager: NodePackageManager; files: string[] }> {
+  const lookup = fileSet ?? files;
+
   return Object.entries(lockfiles)
     .map(([manager, managerLockfiles]) => ({
       manager: manager as NodePackageManager,
-      files: managerLockfiles.filter((lockfile) => files.includes(lockfile))
+      files: managerLockfiles.filter((lockfile) => hasFile(lookup, lockfile))
     }))
     .filter((entry) => entry.files.length > 0);
 }

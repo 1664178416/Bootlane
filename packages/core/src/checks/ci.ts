@@ -96,7 +96,7 @@ export const pythonCiCheck: Check = {
 };
 
 function pythonWorkflowSuggestion(context: ProjectContext): string {
-  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files);
+  const installCommand = getPythonInstallCommand(context.project.packageManager, context.files, context.fileSet);
   const testCommand = getPythonTestCommand(context.project.packageManager, context.project.python?.testTools ?? []);
 
   if (installCommand && testCommand) {

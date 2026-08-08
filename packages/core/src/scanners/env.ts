@@ -1,5 +1,5 @@
 import { readTextFile } from "../files.js";
-import type { Confidence, EnvVarUsage } from "../types.js";
+import type { Confidence, EnvVarUsage, ProjectContext } from "../types.js";
 
 const sourceExtensions = new Set([
   ".js",
@@ -78,6 +78,12 @@ export async function scanEnvUsages(targetPath: string, files: string[]): Promis
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
+export function getEnvUsages(context: ProjectContext): Promise<EnvVarUsage[]> {
+  const cache = (context.cache ??= {});
+  cache.envUsages ??= scanEnvUsages(context.targetPath, context.files);
+  return cache.envUsages;
+}
+
 export async function readEnvExampleNames(targetPath: string): Promise<Set<string> | undefined> {
   const content = await readTextFile(targetPath, ".env.example");
   if (!content) {
@@ -98,6 +104,12 @@ export async function readEnvExampleNames(targetPath: string): Promise<Set<strin
   }
 
   return names;
+}
+
+export function getEnvExampleNames(context: ProjectContext): Promise<Set<string> | undefined> {
+  const cache = (context.cache ??= {});
+  cache.envExampleNames ??= readEnvExampleNames(context.targetPath);
+  return cache.envExampleNames;
 }
 
 function isSourceFile(file: string): boolean {

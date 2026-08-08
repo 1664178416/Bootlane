@@ -121,6 +121,12 @@ export type ProjectContext = {
   project: ProjectSummary;
   files: string[];
   fileSet?: ReadonlySet<string>;
+  cache?: ProjectAnalysisCache;
+};
+
+export type ProjectAnalysisCache = {
+  envUsages?: Promise<EnvVarUsage[]>;
+  envExampleNames?: Promise<Set<string> | undefined>;
 };
 
 export type Check = {

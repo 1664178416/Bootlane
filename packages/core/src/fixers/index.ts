@@ -1,5 +1,5 @@
 import { findFile, hasFile, readTextFile } from "../files.js";
-import { readEnvExampleNames, scanEnvUsages } from "../scanners/env.js";
+import { getEnvExampleNames, getEnvUsages } from "../scanners/env.js";
 import { getPythonInstallCommand, getPythonTestCommand, isPythonTestFile } from "../signals/python.js";
 import type { Finding, FixProposal, PackageManager, ProjectContext } from "../types.js";
 import { packageManagerRunCommand } from "../checks/helpers.js";
@@ -28,12 +28,12 @@ async function generateEnvExampleProposal(
     return undefined;
   }
 
-  const usages = await scanEnvUsages(context.targetPath, context.files);
+  const usages = await getEnvUsages(context);
   if (usages.length === 0) {
     return undefined;
   }
 
-  const existingNames = await readEnvExampleNames(context.targetPath);
+  const existingNames = await getEnvExampleNames(context);
   const missingNames = usages
     .map((usage) => usage.name)
     .filter((name) => !existingNames?.has(name))

@@ -1,4 +1,4 @@
-import { readEnvExampleNames, scanEnvUsages } from "../scanners/env.js";
+import { getEnvExampleNames, getEnvUsages } from "../scanners/env.js";
 import type { Check } from "../types.js";
 import { finding } from "./helpers.js";
 
@@ -7,12 +7,12 @@ export const envCheck: Check = {
   category: "env",
   appliesTo: (context) => context.project.type === "node" || context.project.type === "python",
   async run(context) {
-    const usages = await scanEnvUsages(context.targetPath, context.files);
+    const usages = await getEnvUsages(context);
     if (usages.length === 0) {
       return [];
     }
 
-    const exampleNames = await readEnvExampleNames(context.targetPath);
+    const exampleNames = await getEnvExampleNames(context);
     const usedNames = usages.map((usage) => usage.name);
     const sourceFiles = [...new Set(usages.flatMap((usage) => usage.files))].sort((a, b) => a.localeCompare(b));
 

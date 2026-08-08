@@ -20,6 +20,7 @@ export type {
   Finding,
   FixProposal,
   PackageManager,
+  ProjectAnalysisCache,
   ProjectContext,
   ProjectSummary,
   PythonProjectSummary,
@@ -42,7 +43,8 @@ export async function analyzeProject(options: AnalyzeOptions): Promise<BootlaneR
     config,
     project,
     files,
-    fileSet
+    fileSet,
+    cache: {}
   };
 
   const findings = await runChecks(context);

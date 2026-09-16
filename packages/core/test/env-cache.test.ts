@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { getEnvExampleNames, getEnvUsages } from "../src/scanners/env.js";
+import { scanSecrets } from "../src/scanners/secrets.js";
 import type { ProjectContext } from "../src/types.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -54,6 +55,10 @@ describe("environment scanner cache", () => {
       expect(secondNames).toBe(firstNames);
       expect(await secondNames).toBe(names);
       expect(names?.has("API_URL")).toBe(true);
+
+      const cachedFileCount = context.cache?.textFiles?.size;
+      await scanSecrets(tempDir, context.files, context.cache?.textFiles);
+      expect(context.cache?.textFiles?.size).toBe(cachedFileCount);
     } finally {
       await rm(tempDir, { recursive: true, force: true });
     }

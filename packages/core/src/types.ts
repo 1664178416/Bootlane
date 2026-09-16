@@ -124,7 +124,10 @@ export type ProjectContext = {
   cache?: ProjectAnalysisCache;
 };
 
+export type TextFileCache = Map<string, Promise<string | undefined>>;
+
 export type ProjectAnalysisCache = {
+  textFiles?: TextFileCache;
   envUsages?: Promise<EnvVarUsage[]>;
   envExampleNames?: Promise<Set<string> | undefined>;
 };

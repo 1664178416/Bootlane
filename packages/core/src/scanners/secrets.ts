@@ -1,5 +1,5 @@
-import { readTextFile } from "../files.js";
-import type { SecretHit } from "../types.js";
+import { readTextFiles } from "../files.js";
+import type { SecretHit, TextFileCache } from "../types.js";
 
 const scannableExtensions = new Set([
   ".env",
@@ -38,11 +38,16 @@ const secretPatterns: Array<{ id: string; label: string; pattern: RegExp }> = [
   }
 ];
 
-export async function scanSecrets(targetPath: string, files: string[]): Promise<SecretHit[]> {
+export async function scanSecrets(
+  targetPath: string,
+  files: string[],
+  textFileCache?: TextFileCache
+): Promise<SecretHit[]> {
   const hits: SecretHit[] = [];
+  const scannableFiles = files.filter(isScannableFile);
+  const contents = await readTextFiles(targetPath, scannableFiles, textFileCache);
 
-  for (const file of files.filter(isScannableFile)) {
-    const content = await readTextFile(targetPath, file);
+  for (const { relativePath: file, content } of contents) {
     if (!content) {
       continue;
     }
@@ -104,4 +109,3 @@ function redact(value: string): string {
 
   return `${value.slice(0, 4)}...${value.slice(-4)}`;
 }
-

@@ -1,5 +1,5 @@
-import { readTextFile } from "../files.js";
-import type { Confidence, EnvVarUsage, ProjectContext } from "../types.js";
+import { readTextFileCached, readTextFiles } from "../files.js";
+import type { Confidence, EnvVarUsage, ProjectContext, TextFileCache } from "../types.js";
 
 const sourceExtensions = new Set([
   ".js",
@@ -34,11 +34,16 @@ const envPatterns: Array<{ pattern: RegExp; confidence: Confidence }> = [
   { pattern: /\bos\.getenv\(['"]([A-Z][A-Z0-9_]*)['"]/g, confidence: "high" }
 ];
 
-export async function scanEnvUsages(targetPath: string, files: string[]): Promise<EnvVarUsage[]> {
+export async function scanEnvUsages(
+  targetPath: string,
+  files: string[],
+  textFileCache?: TextFileCache
+): Promise<EnvVarUsage[]> {
   const usageMap = new Map<string, { files: Set<string>; confidence: Confidence }>();
+  const sourceFiles = files.filter(isSourceFile);
+  const contents = await readTextFiles(targetPath, sourceFiles, textFileCache);
 
-  for (const file of files.filter(isSourceFile)) {
-    const content = await readTextFile(targetPath, file);
+  for (const { relativePath: file, content } of contents) {
     if (!content) {
       continue;
     }
@@ -80,12 +85,16 @@ export async function scanEnvUsages(targetPath: string, files: string[]): Promis
 
 export function getEnvUsages(context: ProjectContext): Promise<EnvVarUsage[]> {
   const cache = (context.cache ??= {});
-  cache.envUsages ??= scanEnvUsages(context.targetPath, context.files);
+  cache.textFiles ??= new Map();
+  cache.envUsages ??= scanEnvUsages(context.targetPath, context.files, cache.textFiles);
   return cache.envUsages;
 }
 
-export async function readEnvExampleNames(targetPath: string): Promise<Set<string> | undefined> {
-  const content = await readTextFile(targetPath, ".env.example");
+export async function readEnvExampleNames(
+  targetPath: string,
+  textFileCache?: TextFileCache
+): Promise<Set<string> | undefined> {
+  const content = await readTextFileCached(targetPath, ".env.example", textFileCache);
   if (!content) {
     return undefined;
   }
@@ -108,7 +117,8 @@ export async function readEnvExampleNames(targetPath: string): Promise<Set<strin
 
 export function getEnvExampleNames(context: ProjectContext): Promise<Set<string> | undefined> {
   const cache = (context.cache ??= {});
-  cache.envExampleNames ??= readEnvExampleNames(context.targetPath);
+  cache.textFiles ??= new Map();
+  cache.envExampleNames ??= readEnvExampleNames(context.targetPath, cache.textFiles);
   return cache.envExampleNames;
 }
 

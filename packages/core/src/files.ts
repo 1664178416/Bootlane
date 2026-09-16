@@ -1,6 +1,9 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import fastGlob from "fast-glob";
+import type { TextFileCache } from "./types.js";
+
+const maxConcurrentFileReads = 32;
 
 export type FileLookup = {
   files: readonly string[];
@@ -38,6 +41,51 @@ export async function readTextFile(targetPath: string, relativePath: string): Pr
   } catch {
     return undefined;
   }
+}
+
+export function readTextFileCached(
+  targetPath: string,
+  relativePath: string,
+  cache?: TextFileCache
+): Promise<string | undefined> {
+  if (!cache) {
+    return readTextFile(targetPath, relativePath);
+  }
+
+  const cacheKey = normalizePath(relativePath);
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  const content = readTextFile(targetPath, relativePath);
+  cache.set(cacheKey, content);
+  return content;
+}
+
+export async function readTextFiles(
+  targetPath: string,
+  relativePaths: string[],
+  cache?: TextFileCache
+): Promise<Array<{ relativePath: string; content: string | undefined }>> {
+  const contents = new Array<string | undefined>(relativePaths.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(maxConcurrentFileReads, relativePaths.length);
+
+  await Promise.all(
+    Array.from({ length: workerCount }, async () => {
+      while (nextIndex < relativePaths.length) {
+        const index = nextIndex;
+        nextIndex += 1;
+        contents[index] = await readTextFileCached(targetPath, relativePaths[index]!, cache);
+      }
+    })
+  );
+
+  return relativePaths.map((relativePath, index) => ({
+    relativePath,
+    content: contents[index]
+  }));
 }
 
 export async function readJsonFile<T>(targetPath: string, relativePath: string): Promise<T | undefined> {

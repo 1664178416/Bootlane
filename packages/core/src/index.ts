@@ -26,7 +26,8 @@ export type {
   PythonProjectSummary,
   Score,
   SecretHit,
-  Severity
+  Severity,
+  TextFileCache
 } from "./types.js";
 
 export { loadConfigFile, mergeConfig, renderJsonReport, renderMarkdownReport, resolveConfig };
@@ -44,7 +45,9 @@ export async function analyzeProject(options: AnalyzeOptions): Promise<BootlaneR
     project,
     files,
     fileSet,
-    cache: {}
+    cache: {
+      textFiles: new Map()
+    }
   };
 
   const findings = await runChecks(context);

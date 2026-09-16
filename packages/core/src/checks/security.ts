@@ -25,7 +25,7 @@ export const securityCheck: Check = {
       );
     }
 
-    const secrets = await scanSecrets(context.targetPath, context.files);
+    const secrets = await scanSecrets(context.targetPath, context.files, context.cache?.textFiles);
     if (secrets.length > 0) {
       const files = [...new Set(secrets.map((secret) => secret.file))].sort((a, b) => a.localeCompare(b));
       findings.push(
@@ -47,4 +47,3 @@ export const securityCheck: Check = {
     return findings;
   }
 };
-
